@@ -1,0 +1,11 @@
+*~
+*doc
+*log
+/tmp
+/__pycache__/*
+*pyc
+.ipynb*
+*.sublime-workspace
+.directory/*
+
+gcmk
