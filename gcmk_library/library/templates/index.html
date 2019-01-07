@@ -1,0 +1,13 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>Girls Code MK Library Home</h1>
+  <p>Welcome to Girls Code MK library (based on the one by <em>Mozilla Developer Network</em>!)</p>
+  <h2>Dynamic content</h2>
+  <p>The library has the following record counts:</p>
+  <ul>
+    <li><strong>Books:</strong> {{ num_books }}</li>
+    <li><strong>Copies:</strong> {{ num_copies }}</li>
+    <li><strong>Copies available:</strong> {{ num_copies_available }}</li>
+  </ul>
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>Title: {{ book.title }}</h1>
+
+  <p><strong>Author:</strong> {{ book.author }}</p> <!-- author detail link not yet defined -->
+  <p><strong>ISBN:</strong> {{ book.isbn }}</p> 
+  
+  <div style="margin-left:20px;margin-top:20px">
+    <h4>Copies</h4>
+
+    {% for book_copy in book.copy_set.all %}
+      <hr>
+      <p class="text-muted"><strong>Id:</strong> {{ book_copy.id }}</p>
+      {% if book_copy.available %}
+        <p>Available</p>
+      {% endif %}
+      {% if book_copy.on_loan %}
+        <p>On loan, due back <strong>{{ book_copy.loan_set.last.return_due }}</strong></p>
+      {% endif %}
+
+      <p class="{% if book_copy.condition == 'D' %}text-warning{% elif book_copy.condition == 'L' or book_copy.condition == 'X' %}text-danger{% else %}text-success{% endif %}">{{ book_copy.get_condition_display }}</p>
+
+    {% endfor %}
+  </div>
+{% endblock %}
