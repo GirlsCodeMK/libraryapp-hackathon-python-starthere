@@ -8,4 +8,5 @@
 *.sublime-workspace
 .directory/*
 
+*.sqlite3
 gcmk
