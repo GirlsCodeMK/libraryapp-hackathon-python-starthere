@@ -1,0 +1,16 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+
+<h1>Delete Loan</h1>
+
+<p>Are you sure you want to delete loan of {{ loan.loaned_copy.book.title }} 
+    to {{ loan.borrower.get_username }},
+    loaned on {{ loan.loan_start }}?</p>
+
+<form action="" method="POST">
+  {% csrf_token %}
+  <input type="submit" value="Yes, delete.">
+</form>
+
+{% endblock %}

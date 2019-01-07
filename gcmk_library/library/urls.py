@@ -9,6 +9,13 @@ urlpatterns = [
     path('book/<int:pk>/update/', views.BookUpdate.as_view(), name='book_update'),
     path('book/<int:pk>/delete/', views.BookDelete.as_view(), name='book_delete'),
     path('mybooks/', views.LoanedBooksByUserListView.as_view(), name='my-loans'),
+    path('copy/create/', views.CopyCreate.as_view(), name='copy_create'),
+    path('copy/<int:pk>/update/', views.CopyUpdate.as_view(), name='copy_update'),
+    path('copy/<int:pk>/delete/', views.CopyDelete.as_view(), name='copy_delete'),
     path('loans/', views.LoanedBooksAllListView.as_view(), name='all-loans'),
+    path('loan/<uuid:pk>/return/', views.return_loan_librarian, name='return-loan-librarian'),
     path('loan/<uuid:pk>/renew/', views.renew_loan_librarian, name='renew-loan-librarian'),
+    path('loan/create/', views.LoanCreate.as_view(), name='loan_create'),
+    path('loan/<uuid:pk>/update/', views.LoanUpdate.as_view(), name='loan_update'),
+    path('loan/<uuid:pk>/delete/', views.LoanDelete.as_view(), name='loan_delete'),
 ]

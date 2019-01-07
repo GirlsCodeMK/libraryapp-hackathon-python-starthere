@@ -6,6 +6,9 @@
   <p><strong>Author:</strong> {{ book.author }}</p> <!-- author detail link not yet defined -->
   <p><strong>ISBN:</strong> {{ book.isbn }}</p> 
   
+  {% if perms.library.change_book %} <p><a href="{% url 'book_update' book.id %}">Update</a></p> {% endif %}
+  {% if perms.library.delete_book %} <p><a href="{% url 'book_delete' book.id %}">Delete</a></p> {% endif %}
+
   <div style="margin-left:20px;margin-top:20px">
     <h4>Copies</h4>
 
@@ -21,6 +24,11 @@
 
       <p class="{% if book_copy.condition == 'D' %}text-warning{% elif book_copy.condition == 'L' or book_copy.condition == 'X' %}text-danger{% else %}text-success{% endif %}">{{ book_copy.get_condition_display }}</p>
 
+      {% if perms.library.change_copy %} <p><a href="{% url 'copy_update' book_copy.id %}">Update</a></p> {% endif %}
+      {% if perms.library.delete_copy %} <p><a href="{% url 'copy_delete' book_copy.id %}">Delete</a></p> {% endif %}
+
     {% endfor %}
+
+    {% if perms.library.add_copy %} <p><a href="{% url 'copy_create' %}">Add a copy</a></p> {% endif %}
   </div>
 {% endblock %}

@@ -8,7 +8,8 @@
 
       {% for loan_instance in loan_list %} 
       <li class="{% if loan_instance.is_overdue %}text-danger{% endif %}">
-        <a href="{% url 'book-detail' loan_instance.loaned_copy.book.pk %}">{{loan_instance.loaned_copy.book.title}}</a> ({{ loan_instance.return_due }})        
+        <a href="{% url 'book-detail' loan_instance.loaned_copy.book.pk %}">{{loan_instance.loaned_copy.book.title}}</a> 
+        (return due {{ loan_instance.return_due }})        
       </li>
       {% endfor %}
     </ul>

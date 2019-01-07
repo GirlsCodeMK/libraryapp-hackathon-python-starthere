@@ -20,3 +20,16 @@ class RenewLoanForm(forms.Form):
 
         # Remember to always return the cleaned data.
         return data
+
+class ReturnLoanForm(forms.Form):
+    return_date = forms.DateField(help_text="Enter the date of return.")
+
+    def clean_return_date(self):
+        data = self.cleaned_data['return_date']
+        
+        # Check if a date is not in the past. 
+        if data > datetime.date.today():
+            raise ValidationError(_('Invalid date - return in future'))
+
+        # Remember to always return the cleaned data.
+        return data
