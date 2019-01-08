@@ -26,7 +26,7 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'cwfsx3pjaenkykmmfv=7gz052vojjr
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = bool(os.environ.get('DJANGO_DEBUG', True))
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['fathomless-scrubland-17825.herokuapp.com', '127.0.0.1']
 
 
 # Application definition
