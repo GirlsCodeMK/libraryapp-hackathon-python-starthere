@@ -27,15 +27,45 @@ $ python -m django --version
 ```
 $ python manage.py migrate
 ```
-7. Create a superuser
+
+## Create users and records
+
+There are two options here: either use the pre-populated sample data, or create users and data yourseelf.
+
+### Using sample data (recommended)
+
+After running `migrate`, pick _one_  of the datasets to include in the database.
+
+1. User groups & permissions:
 ```
-$ python manage.py createsuperuser
+$ python manage.py loaddata library-auth.json
 ```
-8. Run the server, and open the admin site (`127.0.0.1:8000/admin`) in a web browser
+2. User groups & permissions, and sample users
+```
+$ python manage.py loaddata library-auth-user.json
+```
+3. User groups & permissions, sample users, and sample books & loans
+```
+$ python manage.py loaddata library-auth-user-library.json
+```
+
+Then run the server:
 ```
 $ python manage.py runserver
 ```
-9. In the admin site, create two group: `Librarian` and `Library user`. Give them the following permissions:
+
+and visit the library site (`127.0.0.1:8000/library`) in a web browser. The admin site is at `127.0.0.1:8000/admin` should you need it.
+
+### Creating users and data by hand
+1. Create a superuser
+```
+$ python manage.py createsuperuser
+```
+2. Run the server, and open the admin site (`127.0.0.1:8000/admin`) in a web browser
+```
+$ python manage.py runserver
+```
+3. In the admin site, create two groups: `Librarian` and `Library user`. Give them the following permissions:
     * _Librarian_
         * auth | user | Can add user
         * auth | user | Can change user
@@ -60,7 +90,7 @@ $ python manage.py runserver
         * library | book | Can view book
         * library | copy | Can view copy
         * library | loan | Can view loan
-10. In the admin site, create some users, book, copies, and loans. Create at least one librarian and one library-user.
+4. In the admin site, create some users, books, copies, and loans. Create at least one librarian and one library-user.
 
 # Links
 
