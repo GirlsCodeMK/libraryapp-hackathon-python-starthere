@@ -16,16 +16,16 @@ $ source gcmk/bin/activate
 ```
 4. Install the required libraries, such as Django    
 ```    
-$ pip install -r requirements.txt
+(gcmk) $ pip install -r requirements.txt
 ```
 5. Check you have the correct version
 ```    
-$ python -m django --version
+(gcmk) $ python -m django --version
 2.1.4
 ```
 6. Run a migration to create the database
 ```
-$ python manage.py migrate
+(gcmk) $ python manage.py migrate
 ```
 
 ## Create users and records
@@ -38,20 +38,20 @@ After running `migrate`, pick _one_  of the datasets to include in the database.
 
 1. User groups & permissions:
 ```
-$ python manage.py loaddata library-auth.json
+(gcmk) $ python manage.py loaddata library-auth.json
 ```
 2. User groups & permissions, and sample users
 ```
-$ python manage.py loaddata library-auth-user.json
+(gcmk) $ python manage.py loaddata library-auth-user.json
 ```
 3. User groups & permissions, sample users, and sample books & loans
 ```
-$ python manage.py loaddata library-auth-user-library.json
+(gcmk) $ python manage.py loaddata library-auth-user-library.json
 ```
 
 Then run the server:
 ```
-$ python manage.py runserver
+(gcmk) $ python manage.py runserver
 ```
 
 and visit the library site (`127.0.0.1:8000/library`) in a web browser. The admin site is at `127.0.0.1:8000/admin` should you need it.
@@ -59,11 +59,11 @@ and visit the library site (`127.0.0.1:8000/library`) in a web browser. The admi
 ### Creating users and data by hand
 1. Create a superuser
 ```
-$ python manage.py createsuperuser
+(gcmk) $ python manage.py createsuperuser
 ```
 2. Run the server, and open the admin site (`127.0.0.1:8000/admin`) in a web browser
 ```
-$ python manage.py runserver
+(gcmk) $ python manage.py runserver
 ```
 3. In the admin site, create two groups: `Librarian` and `Library user`. Give them the following permissions:
     * _Librarian_
