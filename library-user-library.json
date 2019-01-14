@@ -1,0 +1,229 @@
+[
+{
+  "model": "auth.user",
+  "pk": 1,
+  "fields": {
+    "password": "pbkdf2_sha256$120000$sInOZUpHf3M2$VAfgBLwol362Goi2WVotmNv4u5m2VTgznv5wGC/JHPE=",
+    "last_login": "2019-01-14T11:05:37.322Z",
+    "is_superuser": true,
+    "username": "admin",
+    "first_name": "",
+    "last_name": "",
+    "email": "admin@gcmk.org",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2019-01-07T11:04:24.693Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 2,
+  "fields": {
+    "password": "pbkdf2_sha256$120000$NeLq7vIuwqsn$LivuP3y8OonH2/SNfL3KluW0JwszH14MLSoknhUUkC0=",
+    "last_login": "2019-01-11T11:37:22.435Z",
+    "is_superuser": false,
+    "username": "Alice",
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2019-01-07T11:06:48Z",
+    "groups": [
+      2
+    ],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 3,
+  "fields": {
+    "password": "pbkdf2_sha256$120000$uBx81Z5RJY5T$O/wzMV7iMV7C4+sXPeZdHZmuDijZm7L2+tdNDfe+LP8=",
+    "last_login": "2019-01-11T11:42:07.921Z",
+    "is_superuser": false,
+    "username": "Beatrice",
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2019-01-07T11:07:02Z",
+    "groups": [
+      2
+    ],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 4,
+  "fields": {
+    "password": "pbkdf2_sha256$120000$q1i6f4uGJBgC$pv8OGrWc/Nnc3TCAO45EhruCuvv8n7jnr6piNSSrkrk=",
+    "last_login": "2019-01-11T11:37:02.367Z",
+    "is_superuser": false,
+    "username": "Charlotte",
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2019-01-07T11:07:12Z",
+    "groups": [
+      2
+    ],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 5,
+  "fields": {
+    "password": "pbkdf2_sha256$120000$MscSCz0EQAjC$tjdMOe1tHaQzqu8X7bYpx4rfl8+XpZ0BI2K52KacZBw=",
+    "last_login": "2019-01-14T09:23:21.843Z",
+    "is_superuser": false,
+    "username": "Linda",
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2019-01-07T11:07:23Z",
+    "groups": [
+      1,
+      2
+    ],
+    "user_permissions": []
+  }
+},
+{
+  "model": "library.book",
+  "pk": 1,
+  "fields": {
+    "title": "Beginning Django",
+    "author": "Django author",
+    "edition": 1,
+    "isbn": "12234",
+    "publication_date": "2018-09-02"
+  }
+},
+{
+  "model": "library.book",
+  "pk": 2,
+  "fields": {
+    "title": "Advanced Django",
+    "author": "Django author",
+    "edition": 1,
+    "isbn": "43253",
+    "publication_date": "2018-09-16"
+  }
+},
+{
+  "model": "library.book",
+  "pk": 3,
+  "fields": {
+    "title": "Beginning Python",
+    "author": "Python author",
+    "edition": 1,
+    "isbn": "32314",
+    "publication_date": "2018-06-18"
+  }
+},
+{
+  "model": "library.copy",
+  "pk": 1,
+  "fields": {
+    "book": 1,
+    "acquisition_date": "2018-11-01",
+    "copy_number": 1,
+    "condition": "M"
+  }
+},
+{
+  "model": "library.copy",
+  "pk": 2,
+  "fields": {
+    "book": 1,
+    "acquisition_date": "2018-10-10",
+    "copy_number": 2,
+    "condition": "D"
+  }
+},
+{
+  "model": "library.copy",
+  "pk": 3,
+  "fields": {
+    "book": 2,
+    "acquisition_date": "2018-11-14",
+    "copy_number": 1,
+    "condition": "G"
+  }
+},
+{
+  "model": "library.copy",
+  "pk": 4,
+  "fields": {
+    "book": 3,
+    "acquisition_date": "2018-08-23",
+    "copy_number": 1,
+    "condition": "M"
+  }
+},
+{
+  "model": "library.loan",
+  "pk": "0ec31922-fc6b-417c-b665-af05d55ba77c",
+  "fields": {
+    "loaned_copy": 1,
+    "borrower": 4,
+    "loan_start": "2019-01-07",
+    "return_due": "2019-01-13",
+    "date_returned": null
+  }
+},
+{
+  "model": "library.loan",
+  "pk": "22c2e5c2-5217-4d10-8bae-51adedf4b4c2",
+  "fields": {
+    "loaned_copy": 2,
+    "borrower": 4,
+    "loan_start": "2018-12-20",
+    "return_due": "2019-01-16",
+    "date_returned": null
+  }
+},
+{
+  "model": "library.loan",
+  "pk": "242ac8dc-682f-4d1b-b4ca-a4a458ddadca",
+  "fields": {
+    "loaned_copy": 4,
+    "borrower": 3,
+    "loan_start": "2019-01-05",
+    "return_due": "2019-01-26",
+    "date_returned": null
+  }
+},
+{
+  "model": "library.loan",
+  "pk": "8959a803-02b9-4afa-bee1-17b3a7fe5685",
+  "fields": {
+    "loaned_copy": 1,
+    "borrower": 2,
+    "loan_start": "2018-11-01",
+    "return_due": "2018-12-22",
+    "date_returned": "2018-12-19"
+  }
+},
+{
+  "model": "library.loan",
+  "pk": "9d7f5553-d107-4eac-8934-cb02ca75389a",
+  "fields": {
+    "loaned_copy": 3,
+    "borrower": 2,
+    "loan_start": "2018-12-17",
+    "return_due": "2019-01-20",
+    "date_returned": "2019-01-07"
+  }
+}
+]

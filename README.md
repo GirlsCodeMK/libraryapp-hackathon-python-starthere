@@ -27,6 +27,8 @@ $ source gcmk/bin/activate
 ```
 (gcmk) $ python manage.py migrate
 ```
+This migration creates the `Librarian` and `Library user` groups and assigns the correct permissions to them.
+
 
 ## Create users and records
 
@@ -36,17 +38,13 @@ There are two options here: either use the pre-populated sample data, or create 
 
 After running `migrate`, pick _one_  of the datasets to include in the database.
 
-1. User groups & permissions:
+1. Sample users
 ```
-(gcmk) $ python manage.py loaddata library-auth.json
+(gcmk) $ python manage.py loaddata library-user.json
 ```
-2. User groups & permissions, and sample users
+2. Sample users, and sample books & loans
 ```
-(gcmk) $ python manage.py loaddata library-auth-user.json
-```
-3. User groups & permissions, sample users, and sample books & loans
-```
-(gcmk) $ python manage.py loaddata library-auth-user-library.json
+(gcmk) $ python manage.py loaddata library-user-library.json
 ```
 
 Then run the server:
@@ -65,32 +63,7 @@ and visit the library site (`127.0.0.1:8000/library`) in a web browser. The admi
 ```
 (gcmk) $ python manage.py runserver
 ```
-3. In the admin site, create two groups: `Librarian` and `Library user`. Give them the following permissions:
-    * _Librarian_
-        * auth | user | Can add user
-        * auth | user | Can change user
-        * auth | user | Can delete user
-        * auth | user | Can view user
-        * library | book | Can add book
-        * library | book | Can change book
-        * library | book | Can delete book
-        * library | book | Can view book
-        * library | copy | Can add copy
-        * library | copy | Can change copy
-        * library | copy | Can delete copy
-        * library | copy | Can view copy
-        * library | loan | Can add loan
-        * library | loan | Set book as on loan
-        * library | loan | Set book as returned
-        * library | loan | View all users' loans
-        * library | loan | Can change loan
-        * library | loan | Can delete loan
-        * library | loan | Can view loan
-    * _Library user_
-        * library | book | Can view book
-        * library | copy | Can view copy
-        * library | loan | Can view loan
-4. In the admin site, create some users, books, copies, and loans. Create at least one librarian and one library-user.
+3. In the admin site, create some users, books, copies, and loans. Create at least one librarian and one library-user.
 
 # Links
 
