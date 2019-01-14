@@ -86,6 +86,11 @@ class LoanedBooksAllListView(PermissionRequiredMixin, generic.ListView):
     def get_queryset(self):
         return Loan.objects.filter(date_returned__isnull=True).order_by('return_due')  
 
+    def get_context_data(self, *args, **kwargs):
+        context = super(LoanedBooksAllListView, self).get_context_data(*args, **kwargs)
+        context['closed_loan_list'] = Loan.objects.filter(date_returned__isnull=False).order_by('return_due')[:10]
+        return context 
+
 @permission_required('library.can_mark_returned')
 def renew_loan_librarian(request, pk):
     """View function for renewing a specific Loan by librarian."""
