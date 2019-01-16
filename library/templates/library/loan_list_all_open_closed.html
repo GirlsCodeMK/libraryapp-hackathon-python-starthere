@@ -1,7 +1,7 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-    <h1>Borrowed books (All users)</h1>
+    <h1>Borrowed books (all users)</h1>
 
     {% if perms.library.can_mark_returned %}
 
@@ -27,7 +27,27 @@
 
         {% else %}
           <p>There are no books borrowed.</p>
-        {% endif %}    
+        {% endif %}
+
+        <h2>Returned books (all users)</h2>
+
+        {% if closed_loan_list %}
+        <ul>
+
+          {% for loan_instance in closed_loan_list %} 
+          <li class="{% if loan_instance.is_overdue %}text-danger{% endif %}">
+            <a href="{% url 'book-detail' loan_instance.loaned_copy.book.pk %}">{{ loan_instance.loaned_copy.book.title }}</a>
+             ({{ loan_instance.loaned_copy.copy_number }})
+             borrowed by {{ loan_instance.borrower.get_username }}
+             returned on {{ loan_instance.date_returned }}
+             (return due {{ loan_instance.return_due }})
+          </li>
+          {% endfor %}
+        </ul>
+
+        {% else %}
+          <p>There are no books borrowed.</p>
+        {% endif %}
     {% else %}   
         <p>You do not have permission to view this page</p>
     {% endif %}

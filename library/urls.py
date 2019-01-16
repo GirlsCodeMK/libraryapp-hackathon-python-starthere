@@ -13,6 +13,7 @@ urlpatterns = [
     path('copy/<int:pk>/update/', views.CopyUpdate.as_view(), name='copy_update'),
     path('copy/<int:pk>/delete/', views.CopyDelete.as_view(), name='copy_delete'),
     path('loans/', views.LoanedBooksAllListView.as_view(), name='all-loans'),
+    path('loans-open-closed/', views.LoanedBooksAllOpenClosedListView.as_view(), name='all-open-closed-loans'),
     path('loan/<uuid:pk>/return/', views.return_loan_librarian, name='return-loan-librarian'),
     path('loan/<uuid:pk>/renew/', views.renew_loan_librarian, name='renew-loan-librarian'),
     path('loan/create/', views.LoanCreate.as_view(), name='loan_create'),

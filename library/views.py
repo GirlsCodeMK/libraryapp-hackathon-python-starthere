@@ -86,9 +86,19 @@ class LoanedBooksAllListView(PermissionRequiredMixin, generic.ListView):
     def get_queryset(self):
         return Loan.objects.filter(date_returned__isnull=True).order_by('return_due')  
 
+class LoanedBooksAllOpenClosedListView(PermissionRequiredMixin, generic.ListView):
+    """Generic class-based view listing all books on loan. Only visible to users with can_mark_returned permission."""
+    model = Loan
+    permission_required = 'library.can_view_all_loans'
+    template_name ='library/loan_list_all_open_closed.html'
+    paginate_by = 10
+    
+    def get_queryset(self):
+        return Loan.objects.filter(date_returned__isnull=True).order_by('return_due')  
+
     def get_context_data(self, *args, **kwargs):
-        context = super(LoanedBooksAllListView, self).get_context_data(*args, **kwargs)
-        context['closed_loan_list'] = Loan.objects.filter(date_returned__isnull=False).order_by('return_due')[:10]
+        context = super(LoanedBooksAllOpenClosedListView, self).get_context_data(*args, **kwargs)
+        context['closed_loan_list'] = Loan.objects.filter(date_returned__isnull=False).order_by('date_returned')
         return context 
 
 @permission_required('library.can_mark_returned')
