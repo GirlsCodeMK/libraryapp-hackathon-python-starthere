@@ -33,6 +33,7 @@ def index(request):
 
 class BookListView(generic.ListView):
     model = Book
+    paginate_by = 10
 
 class BookDetailView(generic.DetailView):
     model = Book
@@ -71,7 +72,6 @@ class LoanedBooksByUserListView(LoginRequiredMixin, generic.ListView):
     """Generic class-based view listing books on loan to current user."""
     model = Loan
     template_name ='library/loan_list_user.html'
-    paginate_by = 10
     
     def get_queryset(self):
         return Loan.objects.filter(borrower=self.request.user).filter(date_returned__isnull=True).order_by('return_due')
