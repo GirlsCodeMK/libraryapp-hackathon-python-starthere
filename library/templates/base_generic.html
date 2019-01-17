@@ -33,6 +33,7 @@
            <li><a href="{% url 'all-loans' %}">All loans</a></li>
            <li><a href="{% url 'all-open-closed-loans' %}">Open and closed loans</a></li>
            {% if perms.library.add_loan %} <li><a href="{% url 'loan_create' %}">Issue book</a></li> {% endif %}
+           {% if perms.library.add_loan %} <li><a href="{% url 'issue_find_user' %}">Issue to user</a></li> {% endif %}
            </ul>
         {% endif %}
       {% endblock %}

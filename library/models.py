@@ -56,7 +56,7 @@ class Copy(models.Model):
     @property
     def available(self):
         return not(self.on_loan) and (self.condition not in ['L', 'X'])
-    
+
 
 
 class Loan(models.Model):
