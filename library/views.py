@@ -10,7 +10,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 import datetime
 
 from library.models import Book, Copy, Loan
-from library.forms import RenewLoanForm, ReturnLoanForm
+from library.forms import RenewLoanForm, ReturnLoanForm, IssueFindUserForm, IssueToUserForm
 
 def index(request):
     """View function for home page of site."""
@@ -183,5 +183,73 @@ class LoanUpdate(PermissionRequiredMixin, UpdateView):
 
 class LoanDelete(PermissionRequiredMixin, DeleteView):
     model = Loan
+<<<<<<< HEAD
     success_url = reverse_lazy('all_loans')
     permission_required = 'library.delete_loan'
+=======
+    success_url = reverse_lazy('all-loans')
+    permission_required = 'library.delete_loan'
+
+@permission_required('library.can_mark_loaned')
+def issue_find_user(request):
+    """View function for issuing a book copy by librarian."""
+
+    # If this is a POST request then process the Form data
+    if request.method == 'POST':
+
+        # Create a form instance and populate it with data from the request (binding):
+        form = IssueFindUserForm(request.POST)
+
+        # Check if the form is valid:
+        if form.is_valid():
+            # redirect to a new URL:
+            return HttpResponseRedirect(reverse('issue_to_user', args=[form.cleaned_data['selected_user'].pk]) )
+
+    # If this is a GET (or any other method) create the default form.
+    else:
+        form = IssueFindUserForm()
+
+    context = {
+        'form': form,
+    }
+
+    return render(request, 'library/issue_find_user.html', context)
+
+@permission_required('library.can_mark_loaned')
+def issue_to_user(request, user_pk):
+    user = get_object_or_404(User, pk=user_pk)
+    user_loans = Loan.objects.filter(borrower=user)
+    open_loans = user_loans.filter(date_returned__isnull=True).order_by('return_due')  
+    returned_loans = user_loans.filter(date_returned__isnull=False).order_by('date_returned')
+
+    # If this is a POST request then process the Form data
+    if request.method == 'POST':
+
+        # Create a form instance and populate it with data from the request (binding):
+        form = IssueToUserForm(request.POST)
+
+        # Check if the form is valid:
+        if form.is_valid():
+            # process the data in form.cleaned_data as required (here we just write it to the model due_back field)
+            loan = Loan(loaned_copy = Copy.objects.get(pk=form.cleaned_data['selected_copy']),
+                borrower = user,
+                loan_start = datetime.date.today(),
+                return_due = form.cleaned_data['return_due'],
+                )
+            loan.save()
+
+            # redirect to a new URL:
+            return HttpResponseRedirect(reverse('all-loans') )
+
+    # If this is a GET (or any other method) create the default form.
+    else:
+        form = IssueToUserForm(initial={'return_due': datetime.date.today() + datetime.timedelta(weeks=3)})
+
+    context = {
+        'form': form,
+        'user': user,
+        'open_loans': open_loans,
+        'returned_loans': returned_loans,
+    }
+
+    return render(request, 'library/issue_to_user.html', context)
