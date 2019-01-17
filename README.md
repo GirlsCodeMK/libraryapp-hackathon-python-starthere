@@ -21,7 +21,7 @@ $ source gcmk/bin/activate
 5. Check you have the correct version
 ```    
 (gcmk) $ python -m django --version
-2.1.4
+2.1.5
 ```
 6. Run a migration to create the database
 ```
