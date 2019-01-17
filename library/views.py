@@ -183,11 +183,7 @@ class LoanUpdate(PermissionRequiredMixin, UpdateView):
 
 class LoanDelete(PermissionRequiredMixin, DeleteView):
     model = Loan
-<<<<<<< HEAD
     success_url = reverse_lazy('all_loans')
-    permission_required = 'library.delete_loan'
-=======
-    success_url = reverse_lazy('all-loans')
     permission_required = 'library.delete_loan'
 
 @permission_required('library.can_mark_loaned')
@@ -219,7 +215,11 @@ def issue_find_user(request):
 def issue_to_user(request, user_pk):
     user = get_object_or_404(User, pk=user_pk)
     user_loans = Loan.objects.filter(borrower=user)
+<<<<<<< HEAD
     open_loans = user_loans.filter(date_returned__isnull=True).order_by('return_due')  
+=======
+    open_loans = user_loans.filter(date_returned__isnull=True).order_by('return_due')
+>>>>>>> Done custom book issue forms
     returned_loans = user_loans.filter(date_returned__isnull=False).order_by('date_returned')
 
     # If this is a POST request then process the Form data

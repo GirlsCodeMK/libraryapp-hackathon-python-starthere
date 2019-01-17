@@ -18,7 +18,7 @@
         {% if open_loans %}
         <ul>
 
-          {% for loan_instance in open_loans %} 
+          {% for loan_instance in open_loans %}
           <li class="{% if loan_instance.is_overdue %}text-danger{% endif %}">
             <a href="{% url 'book-detail' loan_instance.loaned_copy.book.pk %}">{{ loan_instance.loaned_copy.book.title }}</a>
              ({{ loan_instance.loaned_copy.copy_number }})
@@ -36,7 +36,7 @@
         {% if returned_loans %}
         <ul>
 
-          {% for loan_instance in returned_loans %} 
+          {% for loan_instance in returned_loans %}
           <li class="{% if loan_instance.is_overdue %}text-danger{% endif %}">
             <a href="{% url 'book-detail' loan_instance.loaned_copy.book.pk %}">{{ loan_instance.loaned_copy.book.title }}</a>
              ({{ loan_instance.loaned_copy.copy_number }})
@@ -50,7 +50,7 @@
           <p>There are no books returned.</p>
         {% endif %}
 
-    {% else %}   
+    {% else %}
         <p>You do not have permission to view this page</p>
     {% endif %}
 {% endblock %}
