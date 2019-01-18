@@ -20,7 +20,7 @@
           <li><a href="{% url 'books' %}">All books</a></li>
           {% if user.is_authenticated %}
             <li>User: {{ user.get_username }}</li>
-            <li><a href="{% url 'my-loans' %}">My Loans</a></li>
+            <li><a href="{% url 'my_loans' %}">My Loans</a></li>
             <li><a href="{% url 'logout'%}?next={{request.path}}">Logout</a></li>   
           {% else %}
             <li><a href="{% url 'login'%}?next={{request.path}}">Login</a></li>   
@@ -30,8 +30,8 @@
            <hr />
            <ul class="sidebar-nav">
            <li>Staff</li>
-           <li><a href="{% url 'all-loans' %}">All loans</a></li>
-           <li><a href="{% url 'all-open-closed-loans' %}">Open and closed loans</a></li>
+           <li><a href="{% url 'all_loans' %}">All loans</a></li>
+           <li><a href="{% url 'all_open_closed_loans' %}">Open and closed loans</a></li>
            {% if perms.library.add_loan %} <li><a href="{% url 'loan_create' %}">Issue book</a></li> {% endif %}
            </ul>
         {% endif %}

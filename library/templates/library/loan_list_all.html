@@ -10,13 +10,13 @@
 
           {% for loan_instance in loan_list %} 
           <li class="{% if loan_instance.is_overdue %}text-danger{% endif %}">
-            <a href="{% url 'book-detail' loan_instance.loaned_copy.book.pk %}">{{ loan_instance.loaned_copy.book.title }}</a>
+            <a href="{% url 'book_detail' loan_instance.loaned_copy.book.pk %}">{{ loan_instance.loaned_copy.book.title }}</a>
              ({{ loan_instance.loaned_copy.copy_number }})
              borrowed by {{ loan_instance.borrower.get_username }}
              (return due {{ loan_instance.return_due }})
              {% if perms.library.can_mark_returned %}
-               - <a href="{% url 'return-loan-librarian' loan_instance.id %}">Return</a> 
-               - <a href="{% url 'renew-loan-librarian' loan_instance.id %}">Renew</a> 
+               - <a href="{% url 'return_loan_librarian' loan_instance.id %}">Return</a> 
+               - <a href="{% url 'renew_loan_librarian' loan_instance.id %}">Renew</a> 
              {% endif %}
              {% if perms.library.change_loan %}
                - <a href="{% url 'loan_update' loan_instance.id %}">Update</a> 

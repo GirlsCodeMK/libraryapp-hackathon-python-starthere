@@ -93,26 +93,26 @@ class RenewLoanLibrarianViewTest(TestCase):
             )
 
     def test_redirect_if_not_logged_in(self):
-        response = self.client.get(reverse('renew-loan-librarian', kwargs={'pk': self.test_loan1.pk}))
+        response = self.client.get(reverse('renew_loan_librarian', kwargs={'pk': self.test_loan1.pk}))
         # Manually check redirect (Can't use assertRedirect, because the redirect URL is unpredictable)
         self.assertEqual(response.status_code, 302)
         self.assertTrue(response.url.startswith('/accounts/login/'))
         
     def test_redirect_if_logged_in_but_not_correct_permission(self):
         login = self.client.login(username='testuser', password='F7NcNDVS')
-        response = self.client.get(reverse('renew-loan-librarian', kwargs={'pk': self.test_loan1.pk}))
+        response = self.client.get(reverse('renew_loan_librarian', kwargs={'pk': self.test_loan1.pk}))
         self.assertEqual(response.status_code, 302)
 
     def test_logged_in_with_permission_borrowed_book(self):
         login = self.client.login(username='testlibrarian', password='ubE3AkC2')
-        response = self.client.get(reverse('renew-loan-librarian', kwargs={'pk': self.test_loan2.pk}))
+        response = self.client.get(reverse('renew_loan_librarian', kwargs={'pk': self.test_loan2.pk}))
         
         # Check that it lets us login - this is our book and we have the right permissions.
         self.assertEqual(response.status_code, 200)
 
     def test_logged_in_with_permission_another_users_borrowed_book(self):
         login = self.client.login(username='testlibrarian', password='ubE3AkC2')
-        response = self.client.get(reverse('renew-loan-librarian', kwargs={'pk': self.test_loan1.pk}))
+        response = self.client.get(reverse('renew_loan_librarian', kwargs={'pk': self.test_loan1.pk}))
         
         # Check that it lets us login. We're a librarian, so we can view any users book
         self.assertEqual(response.status_code, 200)
@@ -121,12 +121,12 @@ class RenewLoanLibrarianViewTest(TestCase):
         # unlikely UID to match our bookinstance!
         test_uid = uuid.uuid4()
         login = self.client.login(username='testlibrarian', password='ubE3AkC2')
-        response = self.client.get(reverse('renew-loan-librarian', kwargs={'pk':test_uid}))
+        response = self.client.get(reverse('renew_loan_librarian', kwargs={'pk':test_uid}))
         self.assertEqual(response.status_code, 404)
         
     def test_uses_correct_template(self):
         login = self.client.login(username='testlibrarian', password='ubE3AkC2')
-        response = self.client.get(reverse('renew-loan-librarian', kwargs={'pk': self.test_loan1.pk}))
+        response = self.client.get(reverse('renew_loan_librarian', kwargs={'pk': self.test_loan1.pk}))
         self.assertEqual(response.status_code, 200)
 
         # Check we used correct template

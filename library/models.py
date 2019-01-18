@@ -20,7 +20,7 @@ class Book(models.Model):
 
     def get_absolute_url(self):
         """Returns the url to access a detail record for this book."""
-        return reverse('book-detail', args=[str(self.id)])
+        return reverse('book_detail', args=[str(self.id)])
 
 class Copy(models.Model):
     COPY_CONDITIONS = (
@@ -47,7 +47,7 @@ class Copy(models.Model):
     
     def get_absolute_url(self):
         """Returns the url to access a detail record for this book."""
-        return reverse('book-detail', args=[str(self.book.id)])
+        return reverse('book_detail', args=[str(self.book.id)])
 
     @property
     def on_loan(self):
@@ -84,7 +84,7 @@ class Loan(models.Model):
 
     def get_absolute_url(self):
         """Returns the url to access a detail record for this book."""
-        return reverse('book-detail', args=[str(self.loaned_copy.book.id)])
+        return reverse('book_detail', args=[str(self.loaned_copy.book.id)])
 
     @property
     def is_overdue(self):

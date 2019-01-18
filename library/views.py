@@ -98,7 +98,7 @@ class LoanedBooksAllOpenClosedListView(PermissionRequiredMixin, generic.ListView
 
     def get_context_data(self, *args, **kwargs):
         context = super(LoanedBooksAllOpenClosedListView, self).get_context_data(*args, **kwargs)
-        context['closed_loan_list'] = Loan.objects.filter(date_returned__isnull=False).order_by('date_returned')
+        context['closed_loan_list'] = Loan.objects.filter(date_returned__isnull=False).order_by('-date_returned')
         return context 
 
 @permission_required('library.can_mark_returned')
@@ -119,7 +119,7 @@ def renew_loan_librarian(request, pk):
             loan.save()
 
             # redirect to a new URL:
-            return HttpResponseRedirect(reverse('all-loans') )
+            return HttpResponseRedirect(reverse('all_loans') )
 
     # If this is a GET (or any other method) create the default form.
     else:
@@ -151,7 +151,7 @@ def return_loan_librarian(request, pk):
             loan.save()
 
             # redirect to a new URL:
-            return HttpResponseRedirect(reverse('all-loans') )
+            return HttpResponseRedirect(reverse('all_loans') )
 
     # If this is a GET (or any other method) create the default form.
     else:
@@ -169,6 +169,13 @@ class LoanCreate(PermissionRequiredMixin, CreateView):
     fields = '__all__'
     permission_required = 'library.add_loan'
 
+    def get_initial(self):
+        initial = super(LoanCreate, self).get_initial()
+        initial['loan_start'] = datetime.date.today()
+        initial['return_due'] = datetime.date.today() + datetime.timedelta(weeks=3)
+        return initial
+
+
 class LoanUpdate(PermissionRequiredMixin, UpdateView):
     model = Loan
     fields = '__all__'
@@ -176,5 +183,5 @@ class LoanUpdate(PermissionRequiredMixin, UpdateView):
 
 class LoanDelete(PermissionRequiredMixin, DeleteView):
     model = Loan
-    success_url = reverse_lazy('all-loans')
+    success_url = reverse_lazy('all_loans')
     permission_required = 'library.delete_loan'

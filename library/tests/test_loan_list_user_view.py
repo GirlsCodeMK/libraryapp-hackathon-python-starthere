@@ -41,12 +41,12 @@ class LoanListByUserViewTest(TestCase):
                 )
 
     def test_redirect_if_not_logged_in(self):
-        response = self.client.get(reverse('my-loans'))
+        response = self.client.get(reverse('my_loans'))
         self.assertRedirects(response, '/accounts/login/?next=/library/mybooks/')
 
     def test_logged_in_uses_correct_template(self):
         login = self.client.login(username='testuser1', password='F7NcNDVS')
-        response = self.client.get(reverse('my-loans'))
+        response = self.client.get(reverse('my_loans'))
         
         # Check our user is logged in
         self.assertEqual(str(response.context['user']), 'testuser1')
@@ -58,7 +58,7 @@ class LoanListByUserViewTest(TestCase):
 
     def test_only_borrowed_books_in_list(self):
         login = self.client.login(username='testuser1', password='F7NcNDVS')
-        response = self.client.get(reverse('my-loans'))
+        response = self.client.get(reverse('my_loans'))
         
         # Check our user is logged in
         self.assertEqual(str(response.context['user']), 'testuser1')
@@ -83,7 +83,7 @@ class LoanListByUserViewTest(TestCase):
                 )
 
         # Check that now we have borrowed books in the list
-        response = self.client.get(reverse('my-loans'))
+        response = self.client.get(reverse('my_loans'))
         # Check our user is logged in
         self.assertEqual(str(response.context['user']), 'testuser1')
         # Check that we got a response "success"
@@ -111,7 +111,7 @@ class LoanListByUserViewTest(TestCase):
                 )
 
         login = self.client.login(username='testuser1', password='F7NcNDVS')
-        response = self.client.get(reverse('my-loans'))
+        response = self.client.get(reverse('my_loans'))
         
         # Check our user is logged in
         self.assertEqual(str(response.context['user']), 'testuser1')
