@@ -8,7 +8,10 @@ from django.views import generic
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
 import datetime
+import operator
+import fontawesome as fa
 
+from django.db.models import Q
 from library.models import Book, Copy, Loan
 from library.forms import RenewLoanForm, ReturnLoanForm
 
@@ -18,10 +21,10 @@ def index(request):
     # Generate counts of some of the main objects
     num_books = Book.objects.all().count()
     num_copies = Copy.objects.filter(condition__in='MGWD').count()
-    
+
     # Available books (status = 'a')
     num_copies_available = len([c for c in Copy.objects.all() if c.available])
-    
+
     context = {
         'num_books': num_books,
         'num_copies': num_copies,
@@ -53,6 +56,24 @@ class BookDelete(PermissionRequiredMixin, DeleteView):
     success_url = reverse_lazy('books')
     permission_required = 'library.delete_book'
 
+class BookSearchListView(BookListView):
+
+     def get_queryset(self):
+        result = super(BookSearchListView, self).get_queryset()
+
+        query = self.request.GET.get('q')
+        if query:
+            query_list = query.split()
+            result = result.filter(
+                reduce(operator.and_,
+                       (Q(title__icontains=q) for q in query_list)) |
+                reduce(operator.and_,
+                       (Q(author__icontains=q) for q in query_list))
+            )
+
+        return result
+
+
 class CopyCreate(PermissionRequiredMixin, CreateView):
     model = Copy
     fields = '__all__'
@@ -72,7 +93,7 @@ class LoanedBooksByUserListView(LoginRequiredMixin, generic.ListView):
     """Generic class-based view listing books on loan to current user."""
     model = Loan
     template_name ='library/loan_list_user.html'
-    
+
     def get_queryset(self):
         return Loan.objects.filter(borrower=self.request.user).filter(date_returned__isnull=True).order_by('return_due')
 
@@ -82,9 +103,9 @@ class LoanedBooksAllListView(PermissionRequiredMixin, generic.ListView):
     permission_required = 'library.can_view_all_loans'
     template_name ='library/loan_list_all.html'
     paginate_by = 10
-    
+
     def get_queryset(self):
-        return Loan.objects.filter(date_returned__isnull=True).order_by('return_due')  
+        return Loan.objects.filter(date_returned__isnull=True).order_by('return_due')
 
 class LoanedBooksAllOpenClosedListView(PermissionRequiredMixin, generic.ListView):
     """Generic class-based view listing all books on loan. Only visible to users with can_mark_returned permission."""
@@ -92,14 +113,14 @@ class LoanedBooksAllOpenClosedListView(PermissionRequiredMixin, generic.ListView
     permission_required = 'library.can_view_all_loans'
     template_name ='library/loan_list_all_open_closed.html'
     paginate_by = 10
-    
+
     def get_queryset(self):
-        return Loan.objects.filter(date_returned__isnull=True).order_by('return_due')  
+        return Loan.objects.filter(date_returned__isnull=True).order_by('return_due')
 
     def get_context_data(self, *args, **kwargs):
         context = super(LoanedBooksAllOpenClosedListView, self).get_context_data(*args, **kwargs)
         context['closed_loan_list'] = Loan.objects.filter(date_returned__isnull=False).order_by('-date_returned')
-        return context 
+        return context
 
 @permission_required('library.can_mark_returned')
 def renew_loan_librarian(request, pk):
