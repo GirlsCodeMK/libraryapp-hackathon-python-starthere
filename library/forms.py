@@ -42,9 +42,14 @@ class IssueFindUserForm(forms.Form):
         queryset=User.objects.filter(groups__name='Library user')
         )
 
-class IssueToUserForm(forms.Form):
-    selected_copy = forms.ChoiceField(
-        choices=[(copy.pk, str(copy)) for copy in Copy.objects.all() if copy.available]
-        )
 
+def get_copies():
+    copy_choices = [(c.pk, str(c)) for c in Copy.objects.all() if c.available]
+    return copy_choices
+    # for province in ProvinceCode.objects.filter(country_code_id=1).order_by('code'):
+    #     province_choices.append((province.code, province.code))
+    # return province_choices
+
+class IssueToUserForm(forms.Form):
+    selected_copy = forms.ChoiceField(choices=get_copies)
     return_due = forms.DateField()
