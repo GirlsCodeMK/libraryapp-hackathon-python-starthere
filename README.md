@@ -14,6 +14,13 @@ $ cd /path/to/libraryapp-hackathon-python-starthere/
 $ python3 -m venv gcmk
 $ source gcmk/bin/activate
 ```
+
+(If you're on Windows, the command is
+```
+$ ./gcmk/Scripts/activate
+```
+)
+
 4. Install the required libraries, such as Django    
 ```    
 (gcmk) $ pip install -r requirements.txt
@@ -28,6 +35,10 @@ $ source gcmk/bin/activate
 (gcmk) $ python manage.py migrate
 ```
 This migration creates the `Librarian` and `Library user` groups and assigns the correct permissions to them.
+7. Load the configuration data
+```
+(gcmk) $ python manage.py loaddata library-config.json
+```
 
 
 ## Create users and records
