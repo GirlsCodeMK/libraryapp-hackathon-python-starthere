@@ -44,7 +44,7 @@ class Copy(models.Model):
     def __str__(self):
         """String for representing the Copy object."""
         return self.book.title + ' (' + str(self.copy_number) + ')'
-    
+
     def get_absolute_url(self):
         """Returns the url to access a detail record for this book."""
         return reverse('book_detail', args=[str(self.book.id)])
@@ -73,7 +73,7 @@ class Loan(models.Model):
             ("can_mark_loaned", "Set book as on loan"),
             ("can_mark_returned", "Set book as returned"),
             ("can_view_all_loans", "View all users' loans")
-            ) 
+            )
 
     def __str__(self):
         """String for representing the Loan object."""
@@ -91,3 +91,6 @@ class Loan(models.Model):
         if (not self.date_returned) and date.today() > self.return_due:
             return True
         return False
+
+class Configuration(models.Model):
+    maxbooksonloan = models.PositiveIntegerField()

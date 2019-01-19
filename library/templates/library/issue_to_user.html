@@ -11,10 +11,15 @@
         <table>
         {{ form.as_table }}
         </table>
-        <input type="submit" value="Issue">
+        {% if configuration.maxbooksonloan > open_loans.count %}
+          <input type="submit" value="Issue">
+        {% else %}
+          <br>
+          <p class="text-danger">Sorry! {{ user }} already reached the limit of books on loan.
+            Please request return of one of the books before lending a new one.</p>
+        {% endif %}
       </form>
-      <h2>{{ user }}'s open loans</h2>
-
+      <h2>{{ user }}'s open loans: {{ open_loans.count }} out of {{ configuration.maxbooksonloan }}</h2>
         {% if open_loans %}
         <ul>
 
