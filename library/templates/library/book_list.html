@@ -1,6 +1,13 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
+
+<form id="searchform" action="{% url 'book_search' %}" method="get" accept-charset="utf-8">
+  <input class="searchfield" id="searchbox" name="q" type="text" placeholder="Title, Author...">
+  <button class="searchbutton" type="submit">SEARCH
+  </button>
+</form>
+
   <h1>Book List</h1>
   {% if book_list %}
   <ul>
@@ -12,12 +19,6 @@
     {% endfor %}
   </ul>
 
-
-  <form id="searchform" action="{% url 'book_search' %}" method="get" accept-charset="utf-8">
-    <button class="searchbutton" type="submit">GO
-    </button>
-    <input class="searchfield" id="searchbox" name="q" type="text" placeholder="Search">
-  </form>
 
 
   {% else %}
