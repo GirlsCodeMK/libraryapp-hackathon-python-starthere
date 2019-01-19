@@ -1,0 +1,61 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+
+    {% if perms.library.can_mark_returned %}
+
+      <h1>Issue book to {{ user }} </h1>
+
+      <form action="" method="post">
+        {% csrf_token %}
+        <table>
+        {{ form.as_table }}
+        </table>
+        {% if configuration.maxbooksonloan > open_loans.count %}
+          <input type="submit" value="Issue">
+        {% else %}
+          <br>
+          <p class="text-danger">Sorry! {{ user }} already reached the limit of books on loan.
+            Please request return of one of the books before lending a new one.</p>
+        {% endif %}
+      </form>
+      <h2>{{ user }}'s open loans: {{ open_loans.count }} out of {{ configuration.maxbooksonloan }}</h2>
+        {% if open_loans %}
+        <ul>
+
+          {% for loan_instance in open_loans %}
+          <li class="{% if loan_instance.is_overdue %}text-danger{% endif %}">
+            <a href="{% url 'book_detail' loan_instance.loaned_copy.book.pk %}">{{ loan_instance.loaned_copy.book.title }}</a>
+             ({{ loan_instance.loaned_copy.copy_number }})
+             (return due {{ loan_instance.return_due }})
+          </li>
+          {% endfor %}
+        </ul>
+
+        {% else %}
+          <p>There are no books borrowed.</p>
+        {% endif %}
+
+        <h2>{{ user }}'s returned loans</h2>
+
+        {% if returned_loans %}
+        <ul>
+
+          {% for loan_instance in returned_loans %}
+          <li class="{% if loan_instance.is_overdue %}text-danger{% endif %}">
+            <a href="{% url 'book_detail' loan_instance.loaned_copy.book.pk %}">{{ loan_instance.loaned_copy.book.title }}</a>
+             ({{ loan_instance.loaned_copy.copy_number }})
+             returned on {{ loan_instance.date_returned }}
+             (return due {{ loan_instance.return_due }})
+          </li>
+          {% endfor %}
+        </ul>
+
+        {% else %}
+          <p>There are no books returned.</p>
+        {% endif %}
+
+    {% else %}
+        <p>You do not have permission to view this page</p>
+    {% endif %}
+{% endblock %}
