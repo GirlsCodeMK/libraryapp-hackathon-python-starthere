@@ -20,7 +20,7 @@
 
           {% for loan_instance in open_loans %}
           <li class="{% if loan_instance.is_overdue %}text-danger{% endif %}">
-            <a href="{% url 'book-detail' loan_instance.loaned_copy.book.pk %}">{{ loan_instance.loaned_copy.book.title }}</a>
+            <a href="{% url 'book_detail' loan_instance.loaned_copy.book.pk %}">{{ loan_instance.loaned_copy.book.title }}</a>
              ({{ loan_instance.loaned_copy.copy_number }})
              (return due {{ loan_instance.return_due }})
           </li>
@@ -38,7 +38,7 @@
 
           {% for loan_instance in returned_loans %}
           <li class="{% if loan_instance.is_overdue %}text-danger{% endif %}">
-            <a href="{% url 'book-detail' loan_instance.loaned_copy.book.pk %}">{{ loan_instance.loaned_copy.book.title }}</a>
+            <a href="{% url 'book_detail' loan_instance.loaned_copy.book.pk %}">{{ loan_instance.loaned_copy.book.title }}</a>
              ({{ loan_instance.loaned_copy.copy_number }})
              returned on {{ loan_instance.date_returned }}
              (return due {{ loan_instance.return_due }})
