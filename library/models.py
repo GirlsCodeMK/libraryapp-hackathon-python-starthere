@@ -10,6 +10,8 @@ class Book(models.Model):
     edition = models.PositiveIntegerField()
     isbn = models.CharField(max_length=17)
     publication_date = models.DateField()
+    image = models.CharField(max_length=500,null=True, blank=True)
+    thumbnail = models.CharField(max_length=500,null=True, blank=True)
 
     class Meta:
         ordering = ['title', 'edition', '-publication_date']
