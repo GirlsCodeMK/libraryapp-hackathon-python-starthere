@@ -3,10 +3,19 @@
 {% block content %}
 
 <form id="searchform" action="{% url 'book_search' %}" method="get" accept-charset="utf-8">
-  <input class="searchfield" id="searchbox" name="q" type="text" placeholder="Title, Author...">
+  <input class="searchfield" id="searchbox" name="q" type="text" placeholder="Title, Author..." value="{{ query }}">
   <button class="searchbutton" type="submit">SEARCH
   </button>
+    <select name="sort">
+      <option value="sort">Sort By</option>
+      <option value="1">Author: A-Z</option>
+      <option value="2">Author: Z-A</option>
+      <option value="3">Title: A-Z</option>
+      <option value="4">Title: Z-A</option>
+    </select>
 </form>
+
+<p>{{ query }}</p>
 
   <h1>Book List</h1>
   {% if book_list %}

@@ -58,19 +58,33 @@ class BookDelete(PermissionRequiredMixin, DeleteView):
     permission_required = 'library.delete_book'
 
 class BookSearchListView(BookListView):
+    template_name ='library/book_list.html'
+    def get_queryset(self):
+        unordered_result = super(BookSearchListView, self).get_queryset()
 
-     def get_queryset(self):
-        result = super(BookSearchListView, self).get_queryset()
-
-        query = self.request.GET.get('q')
-        if query:
-            query_list = query.split()
-            result = result.filter(
+        self.query = self.request.GET.get('q')
+        if self.query:
+            query_list = self.query.split()
+            unordered_result = unordered_result.filter(
                 reduce(operator.and_,
                        (Q(title__icontains=q) for q in query_list)) |
                 reduce(operator.and_,
                        (Q(author__icontains=q) for q in query_list))
             )
+        order = self.request.GET.get('sort')
+        if order:
+            if order == "1":
+                result = unordered_result.order_by('author')
+            elif order == "2":
+                result = unordered_result.order_by('-author')
+            elif order == "3":
+                result = unordered_result.order_by('title')
+            elif order == "4":
+                result = unordered_result.order_by('-title')
+            else:
+                result = unordered_result
+        else:
+            result = unordered_result
 
         return result
 
