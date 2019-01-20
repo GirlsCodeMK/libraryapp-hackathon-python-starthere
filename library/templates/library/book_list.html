@@ -2,11 +2,7 @@
 
 {% block content %}
 
-<form id="searchform" action="{% url 'book_search' %}" method="get" accept-charset="utf-8">
-  <input class="searchfield" id="searchbox" name="q" type="text" placeholder="Title, Author..." value="{{ query }}">
-  <button class="searchbutton" type="submit">SEARCH
-  </button>
-</form>
+
 
 <p>{{ query }}</p>
 
@@ -30,11 +26,14 @@
         {% endif %}
         <h4><a href="{{ book.get_absolute_url }}">{{ book.title }}</a></h4>
         <p>{{ book.author }} || {{ book.publication_date }}</p>
-         <div class="tag"> <p  class="tag-words">
-           available
+        {% if book.copy_available %}
+        <div class="tag"> <p  class="tag-words">
+           Available
         </p>   </div>
+        {% else %}
+        <p><i>Not currently available</i></p>
+        {% endif %}
         </div>
- (this is fake. please help)
     </div>
     <!-- ... additional primary action content ... -->
   </div>

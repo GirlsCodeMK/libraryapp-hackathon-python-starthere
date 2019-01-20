@@ -1,6 +1,14 @@
 h1 {
 
 }
+
+
+button {
+  background-color: #0074D9;
+  color: white;
+  border-color: #0074D9;
+  border-style: solid;
+}
 a
 { color : #0074D9}
 .sidebar-nav {
@@ -26,3 +34,21 @@ padding: 20px;
 p.tag-words {
     color: white;
 }
+
+.logowords {
+  float: left;
+  margin-left: 20px;
+}
+
+.nameofproduct {
+  font-family: Arial;
+  font-weight: 700;
+  font-size: 30px;
+  line-height: 40px;
+}
+
+.strapline {
+  font-size: 15px;
+}
+form#searchform {
+    margin-top: 25px;}
