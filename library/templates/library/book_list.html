@@ -13,8 +13,19 @@
 <div class="mdc-card mdc-card--outlined">
   <div class="mdc-card__primary-action">
     <div class="mdc-card__media mdc-card__media--square">
-      <div class="mdc-card__media-content">{{ book.title }}</div>
-      <p>{{ book.author }}</p>
+      <div class="mdc-card__media-content">
+        {% if book.thumbnail %}
+        <img src="{{ book.thumbnail }}" height="150px" width="100%" />
+        {% else %}
+        <img src="https://via.placeholder.com/350x150" height="150px" width="100%" />
+        {% endif %}
+        <h4><a href="{{ book.get_absolute_url }}">{{ book.title }}</a></h4>
+        <p>{{ book.author }} || {{ book.publication_date }}</p>
+         <div class="tag"> <p  class="tag-words">
+           available
+        </p>   </div>
+        </div>
+ (this is fake. please help)
     </div>
     <!-- ... additional primary action content ... -->
   </div>
