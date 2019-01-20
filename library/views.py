@@ -40,7 +40,20 @@ def book_list(request):
     """View function for book search."""
 
     # Generate counts of some of the main objects
-    book_list = Book.objects.all()
+
+
+    if 'q' in request.GET and request.GET['q']:
+        q = request.GET['q']
+        query_list = q.split()
+        book_list = Book.objects.filter(
+            reduce(operator.and_,
+                (Q(title__icontains=q) for q in query_list)) |
+            reduce(operator.and_,
+                (Q(author__icontains=q) for q in query_list))
+            )
+
+    else:
+        book_list = Book.objects.all()
 
     context = {
         'book_list': book_list,
