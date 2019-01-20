@@ -10,6 +10,8 @@ class Book(models.Model):
     edition = models.PositiveIntegerField()
     isbn = models.CharField(max_length=17)
     publication_date = models.DateField()
+    image = models.CharField(max_length=500,null=True, blank=True)
+    thumbnail = models.CharField(max_length=500,null=True, blank=True)
 
     class Meta:
         ordering = ['title', 'edition', '-publication_date']
@@ -44,7 +46,7 @@ class Copy(models.Model):
     def __str__(self):
         """String for representing the Copy object."""
         return self.book.title + ' (' + str(self.copy_number) + ')'
-    
+
     def get_absolute_url(self):
         """Returns the url to access a detail record for this book."""
         return reverse('book_detail', args=[str(self.book.id)])
@@ -56,7 +58,7 @@ class Copy(models.Model):
     @property
     def available(self):
         return not(self.on_loan) and (self.condition not in ['L', 'X'])
-    
+
 
 
 class Loan(models.Model):
@@ -73,7 +75,7 @@ class Loan(models.Model):
             ("can_mark_loaned", "Set book as on loan"),
             ("can_mark_returned", "Set book as returned"),
             ("can_view_all_loans", "View all users' loans")
-            ) 
+            )
 
     def __str__(self):
         """String for representing the Loan object."""
@@ -91,3 +93,6 @@ class Loan(models.Model):
         if (not self.date_returned) and date.today() > self.return_due:
             return True
         return False
+
+class Configuration(models.Model):
+    maxbooksonloan = models.PositiveIntegerField()

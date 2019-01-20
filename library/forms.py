@@ -3,6 +3,9 @@ import datetime
 from django import forms
 from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext_lazy as _
+from django.contrib.auth.models import User
+
+from library.models import Copy
     
 class RenewLoanForm(forms.Form):
     renewal_date = forms.DateField(help_text="Enter a date between now and 4 weeks (default 3).")
@@ -33,3 +36,20 @@ class ReturnLoanForm(forms.Form):
 
         # Remember to always return the cleaned data.
         return data
+
+class IssueFindUserForm(forms.Form):
+    selected_user = forms.ModelChoiceField(
+        queryset=User.objects.filter(groups__name='Library user')
+        )
+
+
+def get_copies():
+    copy_choices = [(c.pk, str(c)) for c in Copy.objects.all() if c.available]
+    return copy_choices
+    # for province in ProvinceCode.objects.filter(country_code_id=1).order_by('code'):
+    #     province_choices.append((province.code, province.code))
+    # return province_choices
+
+class IssueToUserForm(forms.Form):
+    selected_copy = forms.ChoiceField(choices=get_copies)
+    return_due = forms.DateField()
