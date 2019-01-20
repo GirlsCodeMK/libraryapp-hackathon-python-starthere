@@ -1,6 +1,15 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
+
+<form id="searchform" action="{% url 'book_search' %}" method="get" accept-charset="utf-8">
+  <input class="searchfield" id="searchbox" name="q" type="text" placeholder="Title, Author..." value="{{ query }}">
+  <button class="searchbutton" type="submit">SEARCH
+  </button>
+</form>
+
+<p>{{ query }}</p>
+
   <h1>Book List</h1>
   {% if book_list %}
   <ul>
@@ -11,10 +20,16 @@
       </li>
     {% endfor %}
   </ul>
+
+
+
   {% else %}
     <p>There are no books in the library.</p>
-  {% endif %}  
+
+  {% endif %}
 
   {% if perms.library.add_book %} <p><a href="{% url 'book_create' %}">Add a book</a></p> {% endif %}
+
+
 
 {% endblock %}

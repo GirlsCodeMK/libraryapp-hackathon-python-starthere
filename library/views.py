@@ -7,9 +7,13 @@ from django.shortcuts import render, get_object_or_404
 from django.urls import reverse, reverse_lazy
 from django.views import generic
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from functools import reduce
 
 import datetime
+import operator
 
+
+from django.db.models import Q
 from library.models import Book, Copy, Loan
 from library.forms import RenewLoanForm, ReturnLoanForm, IssueFindUserForm, IssueToUserForm
 
@@ -53,6 +57,24 @@ class BookDelete(PermissionRequiredMixin, DeleteView):
     model = Book
     success_url = reverse_lazy('books')
     permission_required = 'library.delete_book'
+
+class BookSearchListView(BookListView):
+
+     def get_queryset(self):
+        result = super(BookSearchListView, self).get_queryset()
+
+        query = self.request.GET.get('q')
+        if query:
+            query_list = query.split()
+            result = result.filter(
+                reduce(operator.and_,
+                       (Q(title__icontains=q) for q in query_list)) |
+                reduce(operator.and_,
+                       (Q(author__icontains=q) for q in query_list))
+            )
+
+        return result
+
 
 class CopyCreate(PermissionRequiredMixin, CreateView):
     model = Copy
