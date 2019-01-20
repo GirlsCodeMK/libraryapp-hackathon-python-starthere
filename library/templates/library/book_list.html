@@ -1,8 +1,21 @@
 {% extends "base_generic.html" %}
 
+{% block standard_search_box %}{% endblock %}
+
 {% block content %}
 
+      <div class="col-sm-3">
 
+        <form id="searchform" action="" method="get" accept-charset="utf-8">
+          {{ book_search_form.q }}
+          {{ book_search_form.order }}
+          <button class="searchbutton" type="submit">SEARCH</button>
+        </form>
+
+      </div>
+
+<div> {% block sortresults %}
+  {% endblock %}</div>
 
 <p>{{ query }}</p>
 
@@ -41,6 +54,10 @@
 </div>
 {% endfor %}
 
+
+
+  {% elif is_a_search_result %}
+      <p>Mo books in the library match your search term.</p>
   {% else %}
     <p>There are no books in the library.</p>
   {% endif %}

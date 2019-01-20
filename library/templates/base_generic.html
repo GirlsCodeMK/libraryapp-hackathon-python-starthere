@@ -18,35 +18,36 @@
     <div class="row">
       <div class="col-sm-9">
         <!-- Image and text -->
-<nav class="navbar navbar-light">
-  <a class="navbar-brand" href="/">
-    <img style="float: left;" src="https://pbs.twimg.com/media/DxWo6dAXcAAnj5h.jpg:large" width="100px"/>
-    <div class="logowords">
-      <span class="nameofproduct">Dewey</span>
-      <span class="strapline"></br>A cat-a-log</span>
-    </div>
-  </a>
-</nav>
-
-    </div>
-    <div class="col-sm-3">
-
-      <form id="searchform" action="{% url 'book_search' %}" method="get" accept-charset="utf-8">
-        <input class="searchfield" id="searchbox" name="q" type="text" placeholder="Title, Author..." value="{{ query }}">
-        <button class="searchbutton" type="submit">SEARCH
-        </button>
-      </form>
-
-    </div>
+        <nav class="navbar navbar-light">
+          <a class="navbar-brand" href="/">
+            <img style="float: left;" src="https://pbs.twimg.com/media/DxWo6dAXcAAnj5h.jpg:large" width="100px"/>
+            <div class="logowords">
+              <span class="nameofproduct">Dewey</span>
+              <span class="strapline"></br>A cat-a-log</span>
+            </div>
+          </a>
+        </nav>
       </div>
+
+      {% block standard_search_box %}
+      <div class="col-sm-3">
+
+        <form id="searchform" action="{% url 'book_list' %}" method="get" accept-charset="utf-8">
+          <input class="searchfield" id="searchbox" name="q" type="text">
+          <button class="searchbutton" type="submit">SEARCH</button>
+        </form>
+
       </div>
+      {% endblock %}
+    </div>
+  </div>
   <div class="container-fluid">
     <div class="row">
       <div class="col-sm-2">
       {% block sidebar %}
             <ul class="sidebar-nav">
           <li><a href="{% url 'index' %}">Home</a></li>
-          <li><a href="{% url 'books' %}">All books</a></li>
+          <li><a href="{% url 'book_list' %}">All books</a></li>
           {% if user.is_authenticated %}
             <li>User: {{ user.get_username }}</li>
             <li><a href="{% url 'my_loans' %}">My Loans</a></li>

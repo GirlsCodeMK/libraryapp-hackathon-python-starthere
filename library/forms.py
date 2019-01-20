@@ -53,3 +53,15 @@ def get_copies():
 class IssueToUserForm(forms.Form):
     selected_copy = forms.ChoiceField(choices=get_copies)
     return_due = forms.DateField()
+
+class BookSearchForm(forms.Form):
+
+    q = forms.CharField(required=False)
+
+    order_choices =[
+        (1, "Author A-Z"), 
+        (2, "Author Z-A"), 
+        (3, "Title A-Z"),
+        (4, "Title Z-A"),
+        ]
+    order = forms.ChoiceField(choices=order_choices, label='Sort order', initial=3)

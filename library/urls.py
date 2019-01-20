@@ -3,7 +3,7 @@ from . import views
 
 urlpatterns = [
     path('', views.index, name='index'),
-    path('books/', views.BookListView.as_view(), name='books'),
+    path('books/', views.book_list, name='book_list'),
     path('book/<int:pk>', views.BookDetailView.as_view(), name='book_detail'),
     path('book/create/', views.BookCreate.as_view(), name='book_create'),
     path('book/<int:pk>/update/', views.BookUpdate.as_view(), name='book_update'),
@@ -19,7 +19,6 @@ urlpatterns = [
     path('loan/create/', views.LoanCreate.as_view(), name='loan_create'),
     path('loan/<uuid:pk>/update/', views.LoanUpdate.as_view(), name='loan_update'),
     path('loan/<uuid:pk>/delete/', views.LoanDelete.as_view(), name='loan_delete'),
-    path('searchresults/', views.BookSearchListView.as_view(), name='book_search'),
     path('issue/', views.issue_find_user, name='issue_find_user'),
     path('issue-to/<int:user_pk>', views.issue_to_user, name='issue_to_user'),
 ]
