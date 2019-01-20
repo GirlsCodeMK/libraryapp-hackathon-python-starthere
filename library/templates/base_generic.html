@@ -15,6 +15,7 @@
     <div class="row">
       <div class="col-sm-2">
       {% block sidebar %}
+        <img src="{% static 'images/logo.png' %}">
         <ul class="sidebar-nav">
           <li><a href="{% url 'index' %}">Home</a></li>
           <li><a href="{% url 'books' %}">All books</a></li>
