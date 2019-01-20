@@ -8,9 +8,38 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
   <!-- Add additional CSS in static file -->
   {% load static %}
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+<script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
   <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 <body>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-9">
+        <!-- Image and text -->
+<nav class="navbar navbar-light">
+  <a class="navbar-brand" href="/">
+    <img style="float: left;" src="https://pbs.twimg.com/media/DxWo6dAXcAAnj5h.jpg:large" width="100px"/>
+    <div class="logowords">
+      <span class="nameofproduct">Dewey</span>
+      <span class="strapline"></br>A cat-a-log</span>
+    </div>
+  </a>
+</nav>
+
+    </div>
+    <div class="col-sm-3">
+
+      <form id="searchform" action="{% url 'book_search' %}" method="get" accept-charset="utf-8">
+        <input class="searchfield" id="searchbox" name="q" type="text" placeholder="Title, Author..." value="{{ query }}">
+        <button class="searchbutton" type="submit">SEARCH
+        </button>
+      </form>
+
+    </div>
+      </div>
+      </div>
   <div class="container-fluid">
     <div class="row">
       <div class="col-sm-2">
@@ -22,10 +51,10 @@
           {% if user.is_authenticated %}
             <li>User: {{ user.get_username }}</li>
             <li><a href="{% url 'my_loans' %}">My Loans</a></li>
-            <li><a href="{% url 'logout'%}?next={{request.path}}">Logout</a></li>   
+            <li><a href="{% url 'logout'%}?next={{request.path}}">Logout</a></li>
           {% else %}
-            <li><a href="{% url 'login'%}?next={{request.path}}">Login</a></li>   
-          {% endif %} 
+            <li><a href="{% url 'login'%}?next={{request.path}}">Login</a></li>
+          {% endif %}
         </ul>
         {% if perms.library.can_mark_returned %}
            <hr />

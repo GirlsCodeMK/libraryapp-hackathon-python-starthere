@@ -2,30 +2,47 @@
 
 {% block content %}
 
-<form id="searchform" action="{% url 'book_search' %}" method="get" accept-charset="utf-8">
-  <input class="searchfield" id="searchbox" name="q" type="text" placeholder="Title, Author..." value="{{ query }}">
-  <button class="searchbutton" type="submit">SEARCH
-  </button>
-</form>
+
 
 <p>{{ query }}</p>
 
   <h1>Book List</h1>
   {% if book_list %}
-  <ul>
+
     {% for book in book_list %}
-      <li>
-        <a href="{{ book.get_absolute_url }}">{{ book.title }}</a> ({{ book.author }})
-        {% if perms.library.change_book %} <a href="{% url 'book_update' book.id %}">Update</a> {% endif %}
-      </li>
-    {% endfor %}
-  </ul>
+      <!-- <li> -->
+        <!-- <a href="{{ book.get_absolute_url }}">{{ book.title }}</a> ({{ book.author }}) -->
+        <!-- {% if perms.library.change_book %} <a href="{% url 'book_update' book.id %}">Update</a> {% endif %} -->
+        <!-- </li> -->
 
+<div class="mdc-card mdc-card--outlined">
+  <div class="mdc-card__primary-action">
+    <div class="mdc-card__media mdc-card__media--square">
+      <div class="mdc-card__media-content">
+        {% if book.thumbnail %}
+        <img src="{{ book.thumbnail }}" height="150px" width="100%" />
+        {% else %}
+        <img src="https://via.placeholder.com/350x150" height="150px" width="100%" />
+        {% endif %}
+        <h4><a href="{{ book.get_absolute_url }}">{{ book.title }}</a></h4>
+        <p>{{ book.author }} || {{ book.publication_date }}</p>
+        {% if book.copy_available %}
+        <div class="tag"> <p  class="tag-words">
+           Available
+        </p>   </div>
+        {% else %}
+        <p><i>Not currently available</i></p>
+        {% endif %}
+        </div>
+    </div>
+    <!-- ... additional primary action content ... -->
+  </div>
 
+</div>
+{% endfor %}
 
   {% else %}
     <p>There are no books in the library.</p>
-
   {% endif %}
 
   {% if perms.library.add_book %} <p><a href="{% url 'book_create' %}">Add a book</a></p> {% endif %}

@@ -24,6 +24,19 @@ class Book(models.Model):
         """Returns the url to access a detail record for this book."""
         return reverse('book_detail', args=[str(self.id)])
 
+    @property
+    def copy_available(self):
+        """True if at least one copy of this book is available for loan, false otherwise"""
+        # available_copy = False
+        # for copy in self.copy_set.all():
+        #     if copy.available:
+        #         available_copy = True
+        # return available_copy
+
+        return any(copy for copy in self.copy_set.all() if copy.available)
+
+
+
 class Copy(models.Model):
     COPY_CONDITIONS = (
         ('M', 'Mint'),
@@ -58,7 +71,6 @@ class Copy(models.Model):
     @property
     def available(self):
         return not(self.on_loan) and (self.condition not in ['L', 'X'])
-
 
 
 class Loan(models.Model):
