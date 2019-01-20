@@ -15,7 +15,7 @@ import operator
 
 from django.db.models import Q
 from library.models import Book, Copy, Loan
-from library.forms import RenewLoanForm, ReturnLoanForm, IssueFindUserForm, IssueToUserForm
+from library.forms import RenewLoanForm, ReturnLoanForm, IssueFindUserForm, IssueToUserForm, BookSearchForm
 
 def index(request):
     """View function for home page of site."""
@@ -36,9 +36,52 @@ def index(request):
     # Render the HTML template index.html with the data in the context variable
     return render(request, 'index.html', context=context)
 
-class BookListView(generic.ListView):
-    model = Book
-    paginate_by = 10
+def book_list(request):
+    """View function for book search."""
+
+    # Generate counts of some of the main objects
+
+    form = BookSearchForm(request.GET)
+    book_list = Book.objects.all()
+    order_term = 'title'
+
+    if form.is_valid():
+
+        if 'q' in form.cleaned_data:
+            q = form.cleaned_data['q']
+            if q:
+                query_list = q.split()
+                book_list = Book.objects.filter(
+                    reduce(operator.and_,
+                        (Q(title__icontains=q) for q in query_list)) |
+                    reduce(operator.and_,
+                        (Q(author__icontains=q) for q in query_list))
+                    )
+        
+        if 'order' in form.cleaned_data:
+            order = form.cleaned_data['order']
+            if order == "1":
+                order_term = 'author'
+            elif order == "2":
+                order_term = '-author'
+            # elif order == "3":
+            #     book_list = book_list.order_by('title')
+            elif order == "4":
+                order_term = '-title'
+        else:
+            form['order'] = 3
+
+    book_list = book_list.order_by(order_term)
+
+
+    context = {
+        'book_search_form': form,
+        'book_list': book_list,
+        'is_a_search_result': form.is_valid(),
+        }
+
+    return render(request, 'library/book_list.html', context=context)
+
 
 class BookDetailView(generic.DetailView):
     model = Book
@@ -57,24 +100,6 @@ class BookDelete(PermissionRequiredMixin, DeleteView):
     model = Book
     success_url = reverse_lazy('books')
     permission_required = 'library.delete_book'
-
-class BookSearchListView(BookListView):
-
-     def get_queryset(self):
-        result = super(BookSearchListView, self).get_queryset()
-
-        query = self.request.GET.get('q')
-        if query:
-            query_list = query.split()
-            result = result.filter(
-                reduce(operator.and_,
-                       (Q(title__icontains=q) for q in query_list)) |
-                reduce(operator.and_,
-                       (Q(author__icontains=q) for q in query_list))
-            )
-
-        return result
-
 
 class CopyCreate(PermissionRequiredMixin, CreateView):
     model = Copy
