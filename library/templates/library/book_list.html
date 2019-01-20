@@ -2,11 +2,14 @@
 
 {% block content %}
 
-<form id="searchform" action="{% url 'book_search' %}" method="get" accept-charset="utf-8">
-  <input class="searchfield" id="searchbox" name="q" type="text" placeholder="Title, Author..." value="{{ query }}">
+<form id="searchform" action="{% url 'books' %}" method="get" accept-charset="utf-8">
+  <input class="searchfield" id="searchbox" name="q" type="text" placeholder="Title, Author...">
   <button class="searchbutton" type="submit">SEARCH
   </button>
 </form>
+
+<div> {% block sortresults %}
+  {% endblock %}</div>
 
 <p>{{ query }}</p>
 
@@ -20,6 +23,8 @@
       </li>
     {% endfor %}
   </ul>
+
+
 
 
 

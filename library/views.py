@@ -36,9 +36,34 @@ def index(request):
     # Render the HTML template index.html with the data in the context variable
     return render(request, 'index.html', context=context)
 
-class BookListView(generic.ListView):
-    model = Book
-    paginate_by = 10
+def book_list(request):
+    """View function for book search."""
+
+    # Generate counts of some of the main objects
+    book_list = Book.objects.all()
+
+    context = {
+        'book_list': book_list,
+        }
+
+    return render(request, 'library/book_list.html', context=context)
+
+
+
+     # def get_queryset(self):
+     #    result = super(BookListView, self).get_queryset()
+     #
+     #    query = self.request.GET.get('q')
+     #    if query:
+     #        query_list = query.split()
+     #        result = result.filter(
+     #            reduce(operator.and_,
+     #                   (Q(title__icontains=q) for q in query_list)) |
+     #            reduce(operator.and_,
+     #                   (Q(author__icontains=q) for q in query_list))
+     #        )
+     #
+     #    return result
 
 class BookDetailView(generic.DetailView):
     model = Book
@@ -57,24 +82,6 @@ class BookDelete(PermissionRequiredMixin, DeleteView):
     model = Book
     success_url = reverse_lazy('books')
     permission_required = 'library.delete_book'
-
-class BookSearchListView(BookListView):
-
-     def get_queryset(self):
-        result = super(BookSearchListView, self).get_queryset()
-
-        query = self.request.GET.get('q')
-        if query:
-            query_list = query.split()
-            result = result.filter(
-                reduce(operator.and_,
-                       (Q(title__icontains=q) for q in query_list)) |
-                reduce(operator.and_,
-                       (Q(author__icontains=q) for q in query_list))
-            )
-
-        return result
-
 
 class CopyCreate(PermissionRequiredMixin, CreateView):
     model = Copy
