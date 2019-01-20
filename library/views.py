@@ -51,16 +51,28 @@ def book_list(request):
             reduce(operator.and_,
                 (Q(author__icontains=q) for q in query_list))
             )
-
     else:
         book_list = Book.objects.all()
+
+    order = request.GET.get('sort')
+    if order:
+        if order == "1":
+            book_list = book_list.order_by('author')
+        elif order == "2":
+            book_list = book_list.order_by('-author')
+        elif order == "3":
+            book_list = book_list.order_by('title')
+        elif order == "4":
+            book_list = book_list.order_by('-title')
+        else:
+            book_list = book_list
+
 
     context = {
         'book_list': book_list,
         }
 
     return render(request, 'library/book_list.html', context=context)
-
 
 
      # def get_queryset(self):

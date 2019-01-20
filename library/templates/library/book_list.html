@@ -5,8 +5,17 @@
 <form id="searchform" action="{% url 'books' %}" method="get" accept-charset="utf-8">
   <input class="searchfield" id="searchbox" name="q" type="text" placeholder="Title, Author...">
   <button class="searchbutton" type="submit">SEARCH
-  </button>
+  </button></br>
+  <select name="sort">
+       <option value="sort">Sort By</option>
+       <option value="1">Author A-Z</option>
+       <option value="2">Author Z-A</option>
+       <option value="3">Title A-Z</option>
+       <option value="4">Title Z-A</option>
+  </select><button class="sortbutton" type="submit">Update</button>
 </form>
+
+
 
 <div> {% block sortresults %}
   {% endblock %}</div>
