@@ -39,7 +39,7 @@ class ReturnLoanForm(forms.Form):
 
 class IssueFindUserForm(forms.Form):
     selected_user = forms.ModelChoiceField(
-        queryset=User.objects.filter(groups__name='Library user')
+        queryset=User.objects.filter(groups__name='Library user').order_by('username')
         )
 
 
