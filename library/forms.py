@@ -64,4 +64,5 @@ class BookSearchForm(forms.Form):
         (3, "Title A-Z"),
         (4, "Title Z-A"),
         ]
-    order = forms.ChoiceField(choices=order_choices, label='Sort order', initial=3)
+    order = forms.ChoiceField(choices=order_choices, label='Sort order', 
+        required=False, initial=3)

@@ -12,10 +12,10 @@ from functools import reduce
 import datetime
 import operator
 
-
 from django.db.models import Q
 from library.models import Book, Copy, Loan
 from library.forms import RenewLoanForm, ReturnLoanForm, IssueFindUserForm, IssueToUserForm, BookSearchForm
+
 
 def index(request):
     """View function for home page of site."""
@@ -39,9 +39,30 @@ def index(request):
 def book_list(request):
     """View function for book search."""
 
-    # Generate counts of some of the main objects
+    # Complex logic as this view can be accessed in three different ways: 
+    #   1. as the standard "all books" list ('q' not set, 'order' not set)
+    #   2. the result of s earch on the "all books" list ('q' set, 'order' set)
+    #   3. the result of a search from some other page ('q' set, 'order' not set)
+    # In case 1, we create an empty form.
+    # In case 3, we inlcude the default sort order in the form parameters
+    # In case 2, we use the form parameters as in the request.
 
-    form = BookSearchForm(request.GET)
+    if 'q' in request.GET:
+        # Case 2 or 3
+        form_fields = {'q': request.GET['q']}
+        if 'order' in request.GET:
+            # Case 2
+            form_fields['order'] = request.GET['order']
+        else:
+            # Case 3: assert the default sort order
+            form_fields['order'] = '3'
+        # form = BookSearchForm(request.GET)
+        form = BookSearchForm(form_fields)
+    else:
+        # standard "all books" search, case 1 above
+        form = BookSearchForm()
+
+    # If the form is invalid, use these definitions of what to display
     book_list = Book.objects.all()
     order_term = 'title'
 
@@ -49,13 +70,15 @@ def book_list(request):
 
         if 'q' in form.cleaned_data:
             q = form.cleaned_data['q']
+            logger.warning('cleaned query: ' + q)
             if q:
                 query_list = q.split()
                 book_list = Book.objects.filter(
                     reduce(operator.and_,
-                        (Q(title__icontains=q) for q in query_list)) |
+                        (Q(title__icontains=term) for term in query_list)) 
+                    |
                     reduce(operator.and_,
-                        (Q(author__icontains=q) for q in query_list))
+                        (Q(author__icontains=term) for term in query_list))
                     )
         
         if 'order' in form.cleaned_data:
@@ -64,19 +87,17 @@ def book_list(request):
                 order_term = 'author'
             elif order == "2":
                 order_term = '-author'
-            # elif order == "3":
-            #     book_list = book_list.order_by('title')
+            elif order == "3":
+                order_term = 'title'
             elif order == "4":
                 order_term = '-title'
-        else:
-            form['order'] = 3
 
     book_list = book_list.order_by(order_term)
-
 
     context = {
         'book_search_form': form,
         'book_list': book_list,
+        # is_a_search_result used to select the message displayed if book_list is empty
         'is_a_search_result': form.is_valid(),
         }
 
