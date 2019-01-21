@@ -70,7 +70,6 @@ def book_list(request):
 
         if 'q' in form.cleaned_data:
             q = form.cleaned_data['q']
-            logger.warning('cleaned query: ' + q)
             if q:
                 query_list = q.split()
                 book_list = Book.objects.filter(
