@@ -1,9 +1,0 @@
-[
-{
-  "model": "library.configuration",
-  "pk": 1,
-  "fields": {
-    "maxbooksonloan": 5
-  }
-}
-]

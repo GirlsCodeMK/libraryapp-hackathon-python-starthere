@@ -4,7 +4,7 @@
   "pk": 1,
   "fields": {
     "password": "pbkdf2_sha256$120000$sInOZUpHf3M2$VAfgBLwol362Goi2WVotmNv4u5m2VTgznv5wGC/JHPE=",
-    "last_login": "2019-01-14T11:05:37.322Z",
+    "last_login": "2019-01-19T22:07:01.934Z",
     "is_superuser": true,
     "username": "admin",
     "first_name": "",
@@ -82,7 +82,7 @@
   "pk": 5,
   "fields": {
     "password": "pbkdf2_sha256$120000$MscSCz0EQAjC$tjdMOe1tHaQzqu8X7bYpx4rfl8+XpZ0BI2K52KacZBw=",
-    "last_login": "2019-01-14T09:23:21.843Z",
+    "last_login": "2019-01-21T12:32:22.106Z",
     "is_superuser": false,
     "username": "Linda",
     "first_name": "",
@@ -106,7 +106,9 @@
     "author": "Django author",
     "edition": 1,
     "isbn": "12234",
-    "publication_date": "2018-09-02"
+    "publication_date": "2018-09-02",
+    "image": null,
+    "thumbnail": null
   }
 },
 {
@@ -117,7 +119,9 @@
     "author": "Django author",
     "edition": 1,
     "isbn": "43253",
-    "publication_date": "2018-09-16"
+    "publication_date": "2018-09-16",
+    "image": null,
+    "thumbnail": null
   }
 },
 {
@@ -128,7 +132,9 @@
     "author": "Python author",
     "edition": 1,
     "isbn": "32314",
-    "publication_date": "2018-06-18"
+    "publication_date": "2018-06-18",
+    "image": null,
+    "thumbnail": null
   }
 },
 {

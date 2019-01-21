@@ -34,13 +34,7 @@ $ ./gcmk/Scripts/activate
 ```
 (gcmk) $ python manage.py migrate
 ```
-This migration creates the `Librarian` and `Library user` groups and assigns the correct permissions to them.
-
-7. Load the configuration data
-```
-(gcmk) $ python manage.py loaddata library-config.json
-```
-
+These migrations creates the `Librarian` and `Library user` groups and assigns the correct permissions to them. They also set up the `Configuration` database table with sensible starting values.
 
 ## Create users and records
 
