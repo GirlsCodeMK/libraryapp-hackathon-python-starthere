@@ -39,6 +39,11 @@ def index(request):
 def book_list(request):
     """View function for book search."""
 
+    # If the form is invalid, use these definitions of what to display
+    book_list = Book.objects.all()
+    order_term = 'title'
+    default_order = '3'
+
     # Complex logic as this view can be accessed in three different ways: 
     #   1. as the standard "all books" list ('q' not set, 'order' not set)
     #   2. the result of s earch on the "all books" list ('q' set, 'order' set)
@@ -48,23 +53,19 @@ def book_list(request):
     # In case 2, we use the form parameters as in the request.
 
     if 'q' in request.GET:
-        # Case 2 or 3
+        # Result of some search, case 2 or 3 as above
         form_fields = {'q': request.GET['q']}
         if 'order' in request.GET:
-            # Case 2
+            # Case 2: use the given sort order
             form_fields['order'] = request.GET['order']
         else:
-            # Case 3: assert the default sort order
-            form_fields['order'] = '3'
-        # form = BookSearchForm(request.GET)
+            # Case 3: use the default sort order
+            form_fields['order'] = default_order
         form = BookSearchForm(form_fields)
     else:
         # standard "all books" search, case 1 above
         form = BookSearchForm()
 
-    # If the form is invalid, use these definitions of what to display
-    book_list = Book.objects.all()
-    order_term = 'title'
 
     if form.is_valid():
 
