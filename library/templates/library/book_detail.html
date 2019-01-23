@@ -16,7 +16,7 @@
 
     {% for book_copy in book.copy_set.all %}
       <hr>
-      <p class="text-muted"><strong>Id:</strong> {{ book_copy.id }}</p>
+      <p><strong>Copy number:</strong> {{ book_copy.copy_number }} <span class="text-muted"><strong>(Id:</strong> {{ book_copy.id }})</span></p>
       {% if book_copy.available %}
         <p>Available</p>
       {% endif %}

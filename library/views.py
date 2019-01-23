@@ -17,6 +17,15 @@ from library.models import Book, Copy, Loan
 from library.forms import RenewLoanForm, ReturnLoanForm, IssueFindUserForm, IssueToUserForm, BookSearchForm
 
 
+# import the logging library
+import logging
+
+# Get an instance of a logger
+logger = logging.getLogger(__name__)
+
+
+
+
 def index(request):
     """View function for home page of site."""
 
@@ -119,7 +128,7 @@ class BookUpdate(PermissionRequiredMixin, UpdateView):
 
 class BookDelete(PermissionRequiredMixin, DeleteView):
     model = Book
-    success_url = reverse_lazy('books')
+    success_url = reverse_lazy('book_list')
     permission_required = 'library.delete_book'
 
 class CopyCreate(PermissionRequiredMixin, CreateView):
@@ -134,8 +143,13 @@ class CopyUpdate(PermissionRequiredMixin, UpdateView):
 
 class CopyDelete(PermissionRequiredMixin, DeleteView):
     model = Copy
-    success_url = reverse_lazy('books')
     permission_required = 'library.delete_copy'
+    # success_url = reverse_lazy('book_list')
+    def get_success_url(self):
+        logger.warning('copy delete args: ' + str(self.kwargs))
+        book_id = Copy.objects.get(pk=self.kwargs['pk']).book.id
+        logger.warning('copy delete loading book: ' + str(book_id))
+        return reverse_lazy('book_detail', kwargs={'pk': book_id}) # kwargs={'pk': self.kwargs['pk']})
 
 #class ConfigurationUpdate(PermissionRequiredMixin, UpdateView):
 #    model = Configuration
