@@ -10,7 +10,11 @@ import datetime
 import uuid
 
 # Test the form itself
+@override_settings(STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage')
 class RenewLoanFormTest(TestCase):
+
+    fixtures = ['config',]
+
     def test_renew_form_date_field_label(self):
         form = RenewLoanForm()
         self.assertTrue(form.fields['renewal_date'].label == None or form.fields['renewal_date'].label == 'renewal date')
@@ -43,6 +47,9 @@ class RenewLoanFormTest(TestCase):
 # Test the view underlying the form
 @override_settings(STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage')
 class RenewLoanLibrarianViewTest(TestCase):
+
+    fixtures = ['config',]
+
     def setUp(self):
         # Create users
         test_user = User.objects.create_user(username='testuser', password='F7NcNDVS')

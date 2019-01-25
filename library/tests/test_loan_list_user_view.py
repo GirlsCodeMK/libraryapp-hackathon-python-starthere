@@ -10,6 +10,9 @@ import datetime
 # so the test harness can find things like the style sheets
 @override_settings(STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage')
 class LoanListByUserViewTest(TestCase):
+
+    fixtures = ['config',]
+    
     @classmethod
     def setUp(cls):
         test_user1 = User.objects.create_user(username='testuser1', password='F7NcNDVS')

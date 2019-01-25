@@ -8,7 +8,7 @@ from datetime import date
 
 class BookModelTest(TestCase):
 
-    fixtures = ['small_test_data.json',]
+    fixtures = ['config', 'small_test_data.json',]
 
     def test_title_max_length(self):
         book = Book.objects.get(id=1)
@@ -27,7 +27,7 @@ class BookModelTest(TestCase):
 
 class CopyModelTest(TestCase):
 
-    fixtures = ['small_test_data.json',]
+    fixtures = ['config', 'small_test_data.json',]
     
     def test_object_name_is_title_and_copy_number(self):
         copy = Copy.objects.get(id=1)
@@ -54,7 +54,7 @@ class CopyModelTest(TestCase):
 
 class LoanModelTest(TestCase):
 
-    fixtures = ['small_test_data.json',]
+    fixtures = ['config', 'small_test_data.json',]
 
     def test_object_name_is_title_and_copy_number(self):
         loan1 = Loan.objects.get(id="0ec31922-fc6b-417c-b665-af05d55ba77c")

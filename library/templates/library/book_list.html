@@ -28,33 +28,52 @@
         <!-- {% if perms.library.change_book %} <a href="{% url 'book_update' book.id %}">Update</a> {% endif %} -->
         <!-- </li> -->
 
-<div class="mdc-card mdc-card--outlined">
-  <div class="mdc-card__primary-action">
-    <div class="mdc-card__media mdc-card__media--square">
-      <div class="mdc-card__media-content">
-        {% if book.thumbnail %}
-        <img src="{{ book.thumbnail }}" height="150px" width="100%" />
-        {% else %}
-        <img src="https://via.placeholder.com/350x150" height="150px" width="100%" />
-        {% endif %}
-        <h4><a href="{{ book.get_absolute_url }}">{{ book.title }}</a></h4>
-        <p>{{ book.author }} || {{ book.publication_date }}</p>
-        {% if book.copy_available %}
-        <div class="tag"> <p  class="tag-words">
-           Available
-        </p>   </div>
-        {% else %}
-        <p><i>Not currently available</i></p>
-        {% endif %}
+      <div class="mdc-card mdc-card--outlined">
+        <div class="mdc-card__primary-action">
+          <div class="mdc-card__media mdc-card__media--square">
+            <div class="mdc-card__media-content">
+              {% if book.thumbnail %}
+              <img src="{{ book.thumbnail }}" height="150px" width="100%" />
+              {% else %}
+              <img src="https://via.placeholder.com/350x150" height="150px" width="100%" />
+              {% endif %}
+              <h4><a href="{{ book.get_absolute_url }}">{{ book.title }}</a></h4>
+              <p>{{ book.author }} || {{ book.publication_date }}</p>
+              {% if book.copy_available %}
+              <div class="tag"> <p  class="tag-words">
+                 Available
+              </p>   </div>
+              {% else %}
+              <p><i>Not currently available</i></p>
+              {% endif %}
+              </div>
+          </div>
+          <!-- ... additional primary action content ... -->
         </div>
-    </div>
-    <!-- ... additional primary action content ... -->
-  </div>
+      </div>
+    {% endfor %}
 
-</div>
-{% endfor %}
-
-
+    {% if book_list.has_other_pages %}
+      <ul class="pagination">
+        {% if book_list.has_previous %}
+          <li><a href="?page={{ book_list.previous_page_number }}">&laquo;</a></li>
+        {% else %}
+          <li class="disabled"><span>&laquo;</span></li>
+        {% endif %}
+        {% for i in book_list.paginator.page_range %}
+          {% if book_list.number == i %}
+            <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+          {% else %}
+            <li><a href="?page={{ i }}">{{ i }}</a></li>
+          {% endif %}
+        {% endfor %}
+        {% if book_list.has_next %}
+          <li><a href="?page={{ book_list.next_page_number }}">&raquo;</a></li>
+        {% else %}
+          <li class="disabled"><span>&raquo;</span></li>
+        {% endif %}
+      </ul>
+    {% endif %}
 
   {% elif is_a_search_result %}
       <p>Mo books in the library match your search term.</p>

@@ -1,20 +1,21 @@
 from django.contrib.auth.decorators import permission_required
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.auth.models import User
-from library.models import Configuration
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.db.models import Q
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse, reverse_lazy
 from django.views import generic
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from functools import reduce
 
 import datetime
+from functools import reduce
 import operator
 
-from django.db.models import Q
-from library.models import Book, Copy, Loan
 from library.forms import RenewLoanForm, ReturnLoanForm, IssueFindUserForm, IssueToUserForm, BookSearchForm
+from library.models import Book, Copy, Loan
+from library.models import Configuration
 
 
 # import the logging library
@@ -102,11 +103,20 @@ def book_list(request):
             elif order == "4":
                 order_term = '-title'
 
+    page = request.GET.get('page', 1)
     book_list = book_list.order_by(order_term)
+
+    paginator = Paginator(book_list, 10)
+    try:
+        books = paginator.page(page)
+    except PageNotAnInteger:
+        books = paginator.page(1)
+    except EmptyPage:
+        books = paginator.page(paginator.num_pages)
 
     context = {
         'book_search_form': form,
-        'book_list': book_list,
+        'book_list': books,
         # is_a_search_result used to select the message displayed if book_list is empty
         'is_a_search_result': form.is_valid(),
         }
