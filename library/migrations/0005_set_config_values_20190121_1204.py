@@ -10,7 +10,7 @@ def reset_config_information(apps, schema_editor):
     if Configuration.objects.all().exists():
         config = Configuration.objects.get()
     else:
-        config = Configuration.objects.create()
+        config = Configuration()
 
     config.maxbooksonloan = 5
     config.save()
