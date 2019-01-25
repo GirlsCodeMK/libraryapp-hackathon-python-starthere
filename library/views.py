@@ -23,7 +23,8 @@ import logging
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
 
-
+# Use by calling 
+# logger.warning('some message that is all one string')
 
 
 def index(request):
@@ -146,9 +147,9 @@ class CopyDelete(PermissionRequiredMixin, DeleteView):
     permission_required = 'library.delete_copy'
     # success_url = reverse_lazy('book_list')
     def get_success_url(self):
-        logger.warning('copy delete args: ' + str(self.kwargs))
+        # logger.warning('copy delete args: ' + str(self.kwargs))
         book_id = Copy.objects.get(pk=self.kwargs['pk']).book.id
-        logger.warning('copy delete loading book: ' + str(book_id))
+        # logger.warning('copy delete, loading book: ' + str(book_id))
         return reverse_lazy('book_detail', kwargs={'pk': book_id}) # kwargs={'pk': self.kwargs['pk']})
 
 #class ConfigurationUpdate(PermissionRequiredMixin, UpdateView):
