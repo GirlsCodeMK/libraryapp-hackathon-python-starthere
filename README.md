@@ -103,7 +103,7 @@ Before you start work, ask around to make sure no-one else is working on that fe
 1. Make sure your local copy of your repository is up-to-date by `pull`ing any changes.
 ```
 (gcmk) $ git checkout master
-(gcmk) $ git fetch upstream`
+(gcmk) $ git fetch upstream
 (gcmk) $ git merge --ff-only upstream/master
 ```
 
@@ -132,7 +132,7 @@ Once you've finished your cool feature, it's time to get it accepted into the ma
 1. Check that the main `master` hasn't changed while you've been working.
 ```
 (gcmk) $ git checkout master
-(gcmk) $ git fetch upstream`
+(gcmk) $ git fetch upstream
 (gcmk) $ git merge --ff-only upstream/master
 ```
 As you've not changed our local copy of `master`, there should be no conflicts here.
