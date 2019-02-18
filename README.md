@@ -103,26 +103,27 @@ Before you start work, ask around to make sure no-one else is working on that fe
 1. Make sure your local copy of your repository is up-to-date by `pull`ing any changes.
 ```
 (gcmk) $ git checkout master
-(gcmk) $ git pull upstream master
+(gcmk) $ git fetch upstream`
+(gcmk) $ git merge --ff-only upstream/master
 ```
 
 2. Create and checkout a new branch for your feature. Call the branch anything you want, but you may want to include your name and/or the issue number (if you're addressing [an open issue on the project](https://github.com/GirlsCodeMK/libraryapp-hackathon-python-starthere/issues)).
 ```
-(gcmk) $ git branch myusername/cool-feature
-(gcmk) $ git checkout myusername/cool-feature
+(gcmk) $ git branch cool-feature
+(gcmk) $ git checkout cool-feature
 ```
-(You can do both of these steps as one with `git checkout -b myusername/cool-feature`)
+(You can do both of these steps as one with `git checkout -b cool-feature`)
 
 3. Do some work on this feature. Make commits often, as is good Git practice.
 
 4. Sooner or later (and preferably sooner), you'll want to `push` these commits to your own repository. The _first_ time you do this, you need to tell Git to create a new branch in your remote `origin` repository on GitHub.
 ```
-(gcmk) $ git push --set-upstream origin myusername/cool-feature
+(gcmk) $ git push --set-upstream origin cool-feature
 ```
 
 5. As you continue to work, make more commits and push them.
 ```
-(gcmk) $ git push origin myusername/cool-feature
+(gcmk) $ git push origin cool-feature
 ```
 
 ## Getting your changes accepted
@@ -131,13 +132,14 @@ Once you've finished your cool feature, it's time to get it accepted into the ma
 1. Check that the main `master` hasn't changed while you've been working.
 ```
 (gcmk) $ git checkout master
-(gcmk) $ git pull upstream master
+(gcmk) $ git fetch upstream`
+(gcmk) $ git merge --ff-only upstream/master
 ```
 As you've not changed our local copy of `master`, there should be no conflicts here.
 
 2. Merge the newly-updated `master` into your feature branch
 ```
-(gcmk) % git checkout myusername/cool-feature
+(gcmk) % git checkout cool-feature
 (gcmk) % git merge master
 ```
 (If you're feeling confident about what you're doing, you can `rebase` your changes instead of `merge`ing them.)
@@ -146,7 +148,7 @@ As you've not changed our local copy of `master`, there should be no conflicts h
 
 4. Push your changes back up to your repository
 ```
-(gcmk) $ git push origin myusername/cool-feature
+(gcmk) $ git push origin cool-feature
 ```
 
 5. On the GitHub website, find the big green "New pull request" button to ask for your changes to be included into main repository.
