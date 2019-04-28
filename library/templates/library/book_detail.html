@@ -14,7 +14,7 @@
   <div style="margin-left:20px;margin-top:20px">
     <h4>Copies</h4>
 
-    {% for book_copy in book.copy_set.all %}
+    {% for book_copy in book.copies.all %}
       <hr>
       <p><strong>Copy number:</strong> {{ book_copy.copy_number }} <span class="text-muted"><strong>(Id:</strong> {{ book_copy.id }})</span></p>
       {% if book_copy.available %}

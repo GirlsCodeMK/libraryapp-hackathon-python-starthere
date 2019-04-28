@@ -18,16 +18,6 @@ from library.models import Book, Copy, Loan
 from library.models import Configuration
 
 
-# import the logging library
-import logging
-
-# Get an instance of a logger
-logger = logging.getLogger(__name__)
-
-# Use by calling 
-# logger.warning('some message that is all one string')
-
-
 def index(request):
     """View function for home page of site."""
 
@@ -57,11 +47,11 @@ def book_list(request):
 
     # Complex logic as this view can be accessed in three different ways: 
     #   1. as the standard "all books" list ('q' not set, 'order' not set)
-    #   2. the result of s earch on the "all books" list ('q' set, 'order' set)
+    #   2. the result of search on the "all books" list ('q' set, 'order' set)
     #   3. the result of a search from some other page ('q' set, 'order' not set)
     # In case 1, we create an empty form.
-    # In case 3, we inlcude the default sort order in the form parameters
     # In case 2, we use the form parameters as in the request.
+    # In case 3, we include the default sort order in the form parameters
 
     if 'q' in request.GET:
         # Result of some search, case 2 or 3 as above

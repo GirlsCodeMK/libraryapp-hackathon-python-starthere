@@ -7,11 +7,11 @@ import uuid # Required for unique loan instances
 class Book(models.Model):
     title = models.CharField(max_length=200)
     author = models.CharField(max_length=200)
-    edition = models.PositiveIntegerField()
+    edition = models.PositiveIntegerField(null=True, blank=True)
     isbn = models.CharField(max_length=17)
     publication_date = models.DateField()
-    image = models.CharField(max_length=500,null=True, blank=True)
-    thumbnail = models.CharField(max_length=500,null=True, blank=True)
+    image = models.CharField(max_length=500, null=True, blank=True)
+    thumbnail = models.CharField(max_length=500, null=True, blank=True)
 
     class Meta:
         ordering = ['title', 'edition', '-publication_date']
@@ -28,12 +28,12 @@ class Book(models.Model):
     def copy_available(self):
         """True if at least one copy of this book is available for loan, false otherwise"""
         # available_copy = False
-        # for copy in self.copy_set.all():
+        # for copy in self.copies.all():
         #     if copy.available:
         #         available_copy = True
         # return available_copy
 
-        return any(copy for copy in self.copy_set.all() if copy.available)
+        return any(copy for copy in self.copies.all() if copy.available)
 
 
 
@@ -47,7 +47,7 @@ class Copy(models.Model):
         ('X', 'Destroyed'),
     )
 
-    book = models.ForeignKey(Book, on_delete=models.CASCADE)
+    book = models.ForeignKey(Book, related_name='copies', on_delete=models.CASCADE)
     acquisition_date = models.DateField()
     copy_number = models.PositiveIntegerField()
     condition = models.CharField(max_length=1, choices=COPY_CONDITIONS)
