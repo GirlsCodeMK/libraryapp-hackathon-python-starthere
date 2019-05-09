@@ -17,6 +17,13 @@ from library.forms import RenewLoanForm, ReturnLoanForm, IssueFindUserForm, Issu
 from library.models import Book, Copy, Loan
 from library.models import Configuration
 
+# import the logging library
+import logging
+
+# Get an instance of a logger
+logger = logging.getLogger('library.views')
+
+
 
 def index(request):
     """View function for home page of site."""
@@ -39,6 +46,8 @@ def index(request):
 
 def book_list(request):
     """View function for book search."""
+
+    logger.warning('book list ' + str(request))
 
     # If the form is invalid, use these definitions of what to display
     book_list = Book.objects.all()
@@ -195,6 +204,9 @@ def renew_loan_librarian(request, pk):
     """View function for renewing a specific Loan by librarian."""
     loan = get_object_or_404(Loan, pk=pk)
 
+    logger.warning(request.method)
+    logger.warning(request.POST)
+
     # If this is a POST request then process the Form data
     if request.method == 'POST':
 
@@ -226,6 +238,9 @@ def renew_loan_librarian(request, pk):
 def return_loan_librarian(request, pk):
     """View function for returning a specific Loan by librarian."""
     loan = get_object_or_404(Loan, pk=pk)
+
+    logger.warning('{} : {}'.format(request.method, pk))
+    logger.warning(request.POST)
 
     # If this is a POST request then process the Form data
     if request.method == 'POST':

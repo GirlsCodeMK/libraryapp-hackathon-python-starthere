@@ -13,10 +13,11 @@ from django.contrib.auth.models import User
 from library.models import Book, Copy, Loan
 from library.models import Configuration
 
+# import the logging library
+import logging
 
-class LoanPermission(BasePermission):
-    def has_permission(self, request, views):
-        return request.user.groups.filter(name='Librarian').exists()
+# Get an instance of a logger
+logger = logging.getLogger('library.views')
 
 
 class BookViewSet(viewsets.ModelViewSet):
@@ -77,7 +78,7 @@ class LoanViewSet(viewsets.ModelViewSet):
         return queryset.order_by('return_due')
 
     serializer_class = LoanSerializer
-    permission_classes = (LoanPermission,)
+    permission_classes = (DjangoModelPermissions,)
 
 class UserViewSet(viewsets.ModelViewSet):
     """

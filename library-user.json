@@ -32,7 +32,7 @@
     "is_active": true,
     "date_joined": "2019-01-07T11:06:48Z",
     "groups": [
-      2
+      2, 3
     ],
     "user_permissions": []
   }

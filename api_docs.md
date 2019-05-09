@@ -78,7 +78,7 @@ These `GET` requests will return information about one or more books.
 
 ### Updating
 
-`POST` to `/library/api/v1/books/` to create a new book. 
+`POST` to `/library/api/v1/books/` to create a new book or update an existing book. 
 
 `PUT` to `/library/api/v1/books/99` to replace all the fields of an existing book with id = 99. 
 
@@ -96,7 +96,7 @@ These `GET` requests will return information about one or more books.
 
 ### Updating
 
-`POST` to `/library/api/v1/copies/` to create a new copy. 
+`POST` to `/library/api/v1/copies/` to create a new copy or update an existing copy. 
 
 `PUT` to `/library/api/v1/copies/99` to replace all the fields of an existing copy with id = 99. 
 
@@ -138,11 +138,11 @@ Authenticated users in the `Librarian` group can view loans for any user, and ca
 
 ### Updating
 
-`POST` to `/library/api/v1/loans/` to create a new copy. 
+`POST` to `/library/api/v1/loans/` to create a new loan or update an existing loan. 
 
-`PUT` to `/library/api/v1/loans/99` to replace all the fields of an existing copy with id = 99. 
+`PUT` to `/library/api/v1/loans/99` to replace all the fields of an existing loan with id = 99. 
 
-`PATCH` to `/library/api/v1/loans/99` to update just some fields of an existing copy. 
+`PATCH` to `/library/api/v1/loans/99` to update just some fields of an existing loan. 
 
 ## Users
 
