@@ -1,6 +1,8 @@
 from django.db import models
 from django.urls import reverse
 from django.contrib.auth.models import User
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 from datetime import date
 import uuid # Required for unique loan instances
 
@@ -51,6 +53,8 @@ class Copy(models.Model):
     acquisition_date = models.DateField()
     copy_number = models.PositiveIntegerField()
     condition = models.CharField(max_length=1, choices=COPY_CONDITIONS)
+    microbit_id = models.PositiveIntegerField(blank=True, null=True)
+    last_microbit_update = models.DateTimeField(blank=True, null=True)
 
     class Meta:
         ordering = ['copy_number']
@@ -80,6 +84,8 @@ class Loan(models.Model):
     loan_start = models.DateField()
     return_due = models.DateField()
     date_returned = models.DateField(null=True, blank=True)
+    microbit_id = models.PositiveIntegerField(blank=True, null=True)
+    last_microbit_update = models.DateTimeField(blank=True, null=True)
 
     class Meta:
         ordering = ['-date_returned', '-return_due', '-loan_start']
@@ -108,3 +114,17 @@ class Loan(models.Model):
 
 class Configuration(models.Model):
     maxbooksonloan = models.PositiveIntegerField()
+
+class UserMicrobit(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    microbit_id = models.PositiveIntegerField(blank=True, null=True)
+    last_microbit_update = models.DateTimeField(blank=True, null=True)
+
+@receiver(post_save, sender=User)
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        UserMicrobit.objects.create(user=instance)
+
+@receiver(post_save, sender=User)
+def save_user_profile(sender, instance, **kwargs):
+    instance.usermicrobit.save()
