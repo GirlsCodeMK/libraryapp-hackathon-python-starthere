@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User, Group
 from rest_framework import serializers
 
-from library.models import Book, Copy, Loan, UserMicrobit
+from library.models import Book, Copy, Loan, UserMicrobit, Category
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
@@ -26,7 +26,13 @@ class CopySerializer(serializers.HyperlinkedModelSerializer):
             'available', 'on_loan',
             'microbit_id', 'last_microbit_update')
 
+class CategorySerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Category
+        fields = ('url', 'category')
+
 class BookSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Book
-        fields = ('url', 'title', 'author', 'isbn', 'copy_available', 'publication_date', 'copies')
+        fields = ('url', 'title', 'author', 'category', 'isbn', 
+            'copy_available', 'publication_date', 'copies')

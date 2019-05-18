@@ -6,15 +6,15 @@ from rest_framework.permissions import (
 from django_filters.rest_framework import DjangoFilterBackend
 from library.serializers import (
     BookSerializer, CopySerializer, LoanSerializer, 
-    UserSerializer, UserMicrobitSerializer
+    UserSerializer, UserMicrobitSerializer, CategorySerializer,
     )
 
 import datetime
 
 from django.contrib.auth.models import User
 
-from library.models import Book, Copy, Loan, UserMicrobit
-from library.models import Configuration
+from library.models import Book, Copy, Loan, UserMicrobit, Category
+# from library.models import Configuration
 
 # import the logging library
 import logging
@@ -98,3 +98,11 @@ class UserMicrobitViewSet(viewsets.ModelViewSet):
     queryset = UserMicrobit.objects.all()
     serializer_class = UserMicrobitSerializer
     permission_classes = (DjangoModelPermissions,) 
+
+class CategoryViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows loans to be viewed or edited.
+    """
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
+    permission_classes = (DjangoModelPermissions,)     

@@ -6,6 +6,18 @@ from django.dispatch import receiver
 from datetime import date
 import uuid # Required for unique loan instances
 
+class Category(models.Model):
+    category = models.CharField(max_length=20)
+
+    class Meta:
+        verbose_name_plural = "categories"
+
+
+    def __str__(self):
+        """String for representing the Book object (in Admin site etc.)."""
+        return self.category
+
+
 class Book(models.Model):
     title = models.CharField(max_length=200)
     author = models.CharField(max_length=200)
@@ -14,6 +26,8 @@ class Book(models.Model):
     publication_date = models.DateField()
     image = models.CharField(max_length=500, null=True, blank=True)
     thumbnail = models.CharField(max_length=500, null=True, blank=True)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, 
+        null=True, default=None)
 
     class Meta:
         ordering = ['title', 'edition', '-publication_date']
