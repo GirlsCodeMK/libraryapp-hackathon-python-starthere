@@ -9,6 +9,7 @@ router.register('myloans', views.MyLoanViewSet, basename='loan')
 router.register('loans', views.LoanViewSet, basename='loan')
 router.register('users', views.UserViewSet)
 router.register('usermicrobits', views.UserMicrobitViewSet)
+router.register('categories', views.CategoryViewSet)
 
 urlpatterns = [
     path('', views.index, name='index'),

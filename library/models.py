@@ -26,7 +26,8 @@ class Book(models.Model):
     publication_date = models.DateField()
     image = models.CharField(max_length=500, null=True, blank=True)
     thumbnail = models.CharField(max_length=500, null=True, blank=True)
-    category = models.ForeignKey(Category, on_delete=models.CASCADE,null=True,default=None)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, 
+        null=True, default=None)
 
     class Meta:
         ordering = ['title', 'edition', '-publication_date']
