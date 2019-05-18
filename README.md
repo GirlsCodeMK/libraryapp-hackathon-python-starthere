@@ -18,9 +18,9 @@ $ python3 -m venv gcmk
 $ source gcmk/bin/activate
 ```
 
-(If you're on Windows using the `cmd` terminal, the command is
+(If you're on Windows using the `cmd` terminal, the command is (make sure you use backslashes)
 ```
-$ ./gcmk/Scripts/activate
+$ .\gcmk\Scripts\activate
 ```
 If you're on Windows using the _Git Bash_ terminal, the command is
 ```
@@ -71,7 +71,7 @@ Then run the server:
 and visit the library site (`127.0.0.1:8000/library`) in a web browser. The admin site is at `127.0.0.1:8000/admin` should you need it.
 
 ### Creating users and data by hand (not recommended)
-If you elect _not_ to use any of the sample datasets, you'll have to create the users by hand. 
+If you elect _not_ to use any of the sample datasets, you'll have to create the users by hand.
 
 1. Create a superuser
 ```
@@ -153,11 +153,11 @@ As you've not changed our local copy of `master`, there should be no conflicts h
 
 5. On the GitHub website, find the big green "New pull request" button to ask for your changes to be included into main repository.
 
-6. That's all you need do: someone else will look at your changes and advise you on what happens next. Your changes could be accepted as-is, or the review could suggest some improvements to make to your feature. 
+6. That's all you need do: someone else will look at your changes and advise you on what happens next. Your changes could be accepted as-is, or the review could suggest some improvements to make to your feature.
 
 
 ## Logging
-The development system is set up to [log some messages to the console](https://docs.djangoproject.com/en/2.1/topics/logging/) (the same terminal where the messages appear from `runserver`). At the moment, logging is only active for calls in the `views.py` file. 
+The development system is set up to [log some messages to the console](https://docs.djangoproject.com/en/2.1/topics/logging/) (the same terminal where the messages appear from `runserver`). At the moment, logging is only active for calls in the `views.py` file.
 
 To log a step of a function, include the line
 ```
