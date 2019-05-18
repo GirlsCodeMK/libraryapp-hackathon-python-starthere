@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   {% block title %}<title>Girls Code MK Library</title>{% endblock %}
   <meta charset="utf-8">
@@ -9,18 +10,19 @@
   <!-- Add additional CSS in static file -->
   {% load static %}
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-<link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
-<script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+  <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+  <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
   <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
+
 <body>
-  <div class="container-fluid">
+  <header class="container-fluid">
     <div class="row">
       <div class="col-sm-9">
         <!-- Image and text -->
         <nav class="navbar navbar-light">
           <a class="navbar-brand" href="/">
-            <img style="float: left;" src="https://pbs.twimg.com/media/DxWo6dAXcAAnj5h.jpg:large" width="100px"/>
+            <img style="float: left;" src="https://pbs.twimg.com/media/DxWo6dAXcAAnj5h.jpg:large" width="100px" />
             <div class="logowords">
               <span class="nameofproduct">Dewey</span>
               <span class="strapline"></br>A cat-a-log</span>
@@ -40,36 +42,37 @@
       </div>
       {% endblock %}
     </div>
-  </div>
+  </header>
   <div class="container-fluid">
     <div class="row">
-      <div class="col-sm-2">
-      {% block sidebar %}
-            <ul class="sidebar-nav">
-          <li><a href="{% url 'index' %}">Home</a></li>
-          <li><a href="{% url 'book_list' %}">All books</a></li>
+      <div id="sidebar" class="col-sm-2">
+        {% block sidebar %}
+        <ul class="sidebar-nav">
+          <a href="{% url 'index' %}"><li>Home</li></a>
+          <a href="{% url 'book_list' %}"><li>All books</li></a>
           {% if user.is_authenticated %}
-            <li>User: {{ user.get_username }}</li>
-            <li><a href="{% url 'my_loans' %}">My Loans</a></li>
-            <li><a href="{% url 'logout'%}?next={{request.path}}">Logout</a></li>
+        <a href="{% url 'my_loans' %}"><li>My Loans</li></a>
+          <li>User: {{ user.get_username }}</li>
+          <a href="{% url 'logout'%}?next={{request.path}}"><li>Logout</li></a>
           {% else %}
-            <li><a href="{% url 'login'%}?next={{request.path}}">Login</a></li>
+          <a href="{% url 'login'%}?next={{request.path}}"><li>Login</li></a>
           {% endif %}
         </ul>
         {% if perms.library.can_mark_returned %}
-           <hr />
-           <ul class="sidebar-nav">
-           <li>Staff</li>
-           <li><a href="{% url 'all_loans' %}">All loans</a></li>
-           <li><a href="{% url 'all_open_closed_loans' %}">Open and closed loans</a></li>
-           {% if perms.library.add_loan %} <li><a href="{% url 'loan_create' %}">Issue book</a></li> {% endif %}
-           {% if perms.library.add_loan %} <li><a href="{% url 'issue_find_user' %}">Issue to user</a></li> {% endif %}
-           </ul>
+        <hr />
+        <ul class="sidebar-nav">
+          <li>Staff</li>
+          <a href="{% url 'all_loans' %}"><li>All loans</li></a>
+          <a href="{% url 'all_open_closed_loans' %}"><li>Open and closed loans</li></a>
+          {% if perms.library.add_loan %} <a href="{% url 'loan_create' %}"><li>Issue book</li></a> {% endif %}
+          {% if perms.library.add_loan %} <a href="{% url 'issue_find_user' %}"><li>Issue to user</li></a> {% endif %}
+        </ul>
         {% endif %}
-      {% endblock %}
+        {% endblock %}
       </div>
       <div class="col-sm-10 ">{% block content %}{% endblock %}</div>
     </div>
   </div>
 </body>
+
 </html>

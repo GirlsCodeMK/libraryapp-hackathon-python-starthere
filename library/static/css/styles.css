@@ -1,7 +1,12 @@
-h1 {
+h1 {}
 
+header {
+  background: cadetblue;
+  border-bottom: black;
+  background: -webkit-linear-gradient(top, #fff 0, #e0e0e0 50%, #fff 100%);
+  /* border: 1px solid #ddd; */
+  margin: 1em;
 }
-
 
 button {
   background-color: #0074D9;
@@ -9,30 +14,37 @@ button {
   border-color: #0074D9;
   border-style: solid;
 }
-a
-{ color : #0074D9}
-.sidebar-nav {
-    margin-top: 20px;
-    padding: 0;
-    list-style: none;
-}
-.mdc-card {
-    display: inline-block;
-margin: 0px 50px 70px 0px;
 
-  -webkit-box-shadow: 1px #ccc;  /* Safari 3-4, iOS 4.0.2 - 4.2, Android 2.3+ */
-  -moz-box-shadow:    1px #ccc;  /* Firefox 3.5 - 3.6 */
+a {
+  color: #0074D9
+}
+
+.sidebar-nav {
+  margin-top: 20px;
+  padding: 0;
+  list-style: none;
+}
+
+.mdc-card {
+  display: inline-block;
+  margin: 0px 50px 70px 0px;
+  -webkit-box-shadow: 1px #ccc;
+  /* Safari 3-4, iOS 4.0.2 - 4.2, Android 2.3+ */
+  -moz-box-shadow: 1px #ccc;
+  /* Firefox 3.5 - 3.6 */
   box-shadow: 1px 1px 1px 1px #ccc;
-padding: 20px;
+  padding: 20px;
 }
+
 .tag {
-    background-color: orange;
-    border-radius: 10px;
-    width: 100px;
-    text-align: center;
+  background-color: orange;
+  border-radius: 10px;
+  width: 100px;
+  text-align: center;
 }
+
 p.tag-words {
-    color: white;
+  color: white;
 }
 
 .logowords {
@@ -50,5 +62,36 @@ p.tag-words {
 .strapline {
   font-size: 15px;
 }
+
+#sidebar {
+  border-color: black;
+  border-style: none;
+  border-width: 1px;
+  padding: 0px;
+  margin: 0px;
+}
+
+#sidebar li{
+  padding: .5rem 2rem .5rem 1.5rem;
+  text-align: left;
+  background-color: #4CAF50;
+  color: white;
+}
+/*
+#sidebar a{
+  color: white;
+} */
+
+#sidebar li:hover{
+  background-color: green;
+  color: white;
+}
+
+#sidebar a:hover{
+  text-decoration: none;
+
+}
+
 form#searchform {
-    margin-top: 25px;}
+  margin-top: 25px;
+}
