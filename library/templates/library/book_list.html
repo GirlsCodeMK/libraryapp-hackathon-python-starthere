@@ -85,7 +85,7 @@
     <p>There are no books in the library.</p>
   {% endif %}
 
-  {% if perms.library.add_book %} <p><a href="{% url 'book_create' %}">Add a book</a></p> {% endif %}
+  {% if perms.library.add_book %} <button type="button"><a id="addabook" href="{% url 'book_create' %}">Add a book</a></button> {% endif %}
 
 
 
