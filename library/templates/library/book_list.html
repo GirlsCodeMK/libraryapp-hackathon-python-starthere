@@ -6,10 +6,14 @@
 
       <div class="col-sm-3">
 
-        <form id="searchform" action="" method="get" accept-charset="utf-8">
-          {{ book_search_form.q }}
-          {{ book_search_form.order }}
-          <button class="searchbutton" type="submit">SEARCH</button>
+        <form action="" method="get" accept-charset="utf-8">
+	  {{ book_search_form.q }}
+	  <hr>
+	  <button style="background-color: white; border-color:white;" class="searchbutton" type="submit"> 
+          	{{ book_search_form.order }}
+	  </button>
+	  <hr>
+	  <button class="searchbutton" type="submit">SEARCH</button>
         </form>
 
       </div>
