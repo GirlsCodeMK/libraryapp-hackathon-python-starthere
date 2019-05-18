@@ -4,10 +4,11 @@
   <h1>Title: {{ book.title }}</h1>
 
   <p><strong>Author:</strong> {{ book.author }}</p> <!-- author detail link not yet defined -->
-  <p><strong>ISBN:</strong> {{ book.isbn }}</p> 
+  <p><strong>ISBN:</strong> {{ book.isbn }}</p>
+  <p><strong>Category:</strong>{{book.category}}</p>
   <img src="{{ book.image }}">
-  
-  
+
+
   {% if perms.library.change_book %} <p><a href="{% url 'book_update' book.id %}">Update</a></p> {% endif %}
   {% if perms.library.delete_book %} <p><a href="{% url 'book_delete' book.id %}">Delete</a></p> {% endif %}
 

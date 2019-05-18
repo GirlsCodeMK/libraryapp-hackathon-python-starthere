@@ -2,7 +2,7 @@
 
 ## Formats
 
-The API supports most HTTP verbs most of the time, but generally use only `GET` and `POST` to interact with the data.
+The API supports most HTTP verbs most of the time; use `GET` to fetch data, and `POST`, `PUT` or `PATCH` to write data. 
 
 The API only returns JSON format responses.
 
@@ -146,4 +146,4 @@ Authenticated users in the `Librarian` group can view loans for any user, and ca
 
 ## Users
 
-User information is not available across this API.
+User information is not available across this API. However, you can get hold of user's microbit information from the `/library/api/v1/usermicrobits/` endpoint.

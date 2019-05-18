@@ -9,16 +9,21 @@ header {
 }
 
 button {
-  background-color: #0074D9;
-  color: white;
+  background-color: ##edf6ff;
+  color: gray;
   border-color: #0074D9;
   border-style: solid;
+  padding: 1rem;
+  border-radius: 1em;
 }
-
 a {
-  color: #0074D9
+  color : #0074D9
 }
+#addabook {
+  font-size: 2em;
+  font-style: bold;
 
+}
 .sidebar-nav {
   margin-top: 20px;
   padding: 0;
@@ -77,10 +82,6 @@ p.tag-words {
   background-color: #4CAF50;
   color: white;
 }
-/*
-#sidebar a{
-  color: white;
-} */
 
 #sidebar li:hover{
   background-color: green;
