@@ -143,7 +143,6 @@ import dj_database_url
 db_from_env = dj_database_url.config(conn_max_age=500)
 DATABASES['default'].update(db_from_env)
 
-
 # REST framework
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
@@ -158,7 +157,6 @@ REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': 
         ('django_filters.rest_framework.DjangoFilterBackend',),
 }
-
 
 import os
 
@@ -177,3 +175,6 @@ LOGGING = {
         },
     },
 }
+
+EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
+EMAIL_FILE_PATH = os.path.join(BASE_DIR, "sent_emails")
