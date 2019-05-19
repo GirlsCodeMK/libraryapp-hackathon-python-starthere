@@ -54,6 +54,7 @@
             <li><a href="{% url 'logout'%}?next={{request.path}}">Logout</a></li>
           {% else %}
             <li><a href="{% url 'login'%}?next={{request.path}}">Login</a></li>
+            <li><a href="{% url 'signup'%}?next={{request.path}}">Signup</a></li>
           {% endif %}
         </ul>
         {% if perms.library.can_mark_returned %}
