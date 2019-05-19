@@ -7,6 +7,8 @@
   <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
   <!-- Add additional CSS in static file -->
+  <!-- Fontawesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
   {% load static %}
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="shortcut icon" href="{% static 'favicon.ico' %}">
@@ -33,8 +35,8 @@
       <div class="col-sm-3">
 
         <form id="searchform" action="{% url 'book_list' %}" method="get" accept-charset="utf-8">
-          <input class="searchfield" id="searchbox" name="q" type="text">
-          <button class="searchbutton" type="submit">SEARCH</button>
+          <input class="searchfield" id="searchbox" name="q" type="text" placeholder="Title, Author, ISBN...">
+          <button type="submit" class="magnifybutton"><i class="fas fa-search magnifybutton-icon"></i></button>
         </form>
 
       </div>
