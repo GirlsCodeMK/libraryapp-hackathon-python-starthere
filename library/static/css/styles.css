@@ -53,3 +53,10 @@ p.tag-words {
 }
 form#searchform {
     margin-top: 25px;}
+
+.linestyle {
+  color: #fdac00;
+  margin: 0;
+  border-top: 7px solid;
+
+}
