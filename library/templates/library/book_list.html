@@ -6,10 +6,14 @@
 
       <div class="col-sm-3">
 
-        <form id="searchform" action="" method="get" accept-charset="utf-8">
-          {{ book_search_form.q }}
-          {{ book_search_form.order }}
-          <button class="searchbutton" type="submit">SEARCH</button>
+        <form action="" method="get" accept-charset="utf-8">
+	  {{ book_search_form.q }}
+	  <hr>
+	  <button style="background-color: white; border-color:white;" class="searchbutton" type="submit"> 
+          	{{ book_search_form.order }}
+	  </button>
+	  <hr>
+	  <button class="searchbutton" type="submit">SEARCH</button>
         </form>
 
       </div>
@@ -76,12 +80,12 @@
     {% endif %}
 
   {% elif is_a_search_result %}
-      <p>Mo books in the library match your search term.</p>
+      <p>No books in the library match your search term.</p>
   {% else %}
     <p>There are no books in the library.</p>
   {% endif %}
 
-  {% if perms.library.add_book %} <p><a href="{% url 'book_create' %}">Add a book</a></p> {% endif %}
+  {% if perms.library.add_book %} <button type="button"><a id="addabook" href="{% url 'book_create' %}">Add a book</a></button> {% endif %}
 
 
 

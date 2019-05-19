@@ -17,15 +17,12 @@ from library.forms import RenewLoanForm, ReturnLoanForm, IssueFindUserForm, Issu
 from library.models import Book, Copy, Loan
 from library.models import Configuration
 
-
 # import the logging library
 import logging
 
 # Get an instance of a logger
-logger = logging.getLogger(__name__)
+logger = logging.getLogger('library.views')
 
-# Use by calling 
-# logger.warning('some message that is all one string')
 
 
 def index(request):
@@ -50,6 +47,8 @@ def index(request):
 def book_list(request):
     """View function for book search."""
 
+    logger.warning('book list ' + str(request))
+
     # If the form is invalid, use these definitions of what to display
     book_list = Book.objects.all()
     order_term = 'title'
@@ -57,11 +56,11 @@ def book_list(request):
 
     # Complex logic as this view can be accessed in three different ways: 
     #   1. as the standard "all books" list ('q' not set, 'order' not set)
-    #   2. the result of s earch on the "all books" list ('q' set, 'order' set)
+    #   2. the result of search on the "all books" list ('q' set, 'order' set)
     #   3. the result of a search from some other page ('q' set, 'order' not set)
     # In case 1, we create an empty form.
-    # In case 3, we inlcude the default sort order in the form parameters
     # In case 2, we use the form parameters as in the request.
+    # In case 3, we include the default sort order in the form parameters
 
     if 'q' in request.GET:
         # Result of some search, case 2 or 3 as above
@@ -205,6 +204,9 @@ def renew_loan_librarian(request, pk):
     """View function for renewing a specific Loan by librarian."""
     loan = get_object_or_404(Loan, pk=pk)
 
+    logger.warning(request.method)
+    logger.warning(request.POST)
+
     # If this is a POST request then process the Form data
     if request.method == 'POST':
 
@@ -236,6 +238,9 @@ def renew_loan_librarian(request, pk):
 def return_loan_librarian(request, pk):
     """View function for returning a specific Loan by librarian."""
     loan = get_object_or_404(Loan, pk=pk)
+
+    logger.warning('{} : {}'.format(request.method, pk))
+    logger.warning(request.POST)
 
     # If this is a POST request then process the Form data
     if request.method == 'POST':

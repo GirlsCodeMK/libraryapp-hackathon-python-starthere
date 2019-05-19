@@ -1,17 +1,33 @@
 from django.db import models
 from django.urls import reverse
 from django.contrib.auth.models import User
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 from datetime import date
 import uuid # Required for unique loan instances
+
+class Category(models.Model):
+    category = models.CharField(max_length=20)
+
+    class Meta:
+        verbose_name_plural = "categories"
+
+
+    def __str__(self):
+        """String for representing the Book object (in Admin site etc.)."""
+        return self.category
+
 
 class Book(models.Model):
     title = models.CharField(max_length=200)
     author = models.CharField(max_length=200)
-    edition = models.PositiveIntegerField()
+    edition = models.PositiveIntegerField(null=True, blank=True)
     isbn = models.CharField(max_length=17)
     publication_date = models.DateField()
-    image = models.CharField(max_length=500,null=True, blank=True)
-    thumbnail = models.CharField(max_length=500,null=True, blank=True)
+    image = models.CharField(max_length=500, null=True, blank=True)
+    thumbnail = models.CharField(max_length=500, null=True, blank=True)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, 
+        null=True, default=None)
 
     class Meta:
         ordering = ['title', 'edition', '-publication_date']
@@ -28,12 +44,12 @@ class Book(models.Model):
     def copy_available(self):
         """True if at least one copy of this book is available for loan, false otherwise"""
         # available_copy = False
-        # for copy in self.copy_set.all():
+        # for copy in self.copies.all():
         #     if copy.available:
         #         available_copy = True
         # return available_copy
 
-        return any(copy for copy in self.copy_set.all() if copy.available)
+        return any(copy for copy in self.copies.all() if copy.available)
 
 
 
@@ -47,10 +63,12 @@ class Copy(models.Model):
         ('X', 'Destroyed'),
     )
 
-    book = models.ForeignKey(Book, on_delete=models.CASCADE)
+    book = models.ForeignKey(Book, related_name='copies', on_delete=models.CASCADE)
     acquisition_date = models.DateField()
     copy_number = models.PositiveIntegerField()
     condition = models.CharField(max_length=1, choices=COPY_CONDITIONS)
+    microbit_id = models.PositiveIntegerField(blank=True, null=True)
+    last_microbit_update = models.DateTimeField(blank=True, null=True)
 
     class Meta:
         ordering = ['copy_number']
@@ -80,6 +98,8 @@ class Loan(models.Model):
     loan_start = models.DateField()
     return_due = models.DateField()
     date_returned = models.DateField(null=True, blank=True)
+    microbit_id = models.PositiveIntegerField(blank=True, null=True)
+    last_microbit_update = models.DateTimeField(blank=True, null=True)
 
     class Meta:
         ordering = ['-date_returned', '-return_due', '-loan_start']
@@ -108,3 +128,17 @@ class Loan(models.Model):
 
 class Configuration(models.Model):
     maxbooksonloan = models.PositiveIntegerField()
+
+class UserMicrobit(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    microbit_id = models.PositiveIntegerField(blank=True, null=True)
+    last_microbit_update = models.DateTimeField(blank=True, null=True)
+
+@receiver(post_save, sender=User)
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        UserMicrobit.objects.create(user=instance)
+
+@receiver(post_save, sender=User)
+def save_user_profile(sender, instance, **kwargs):
+    instance.usermicrobit.save()
