@@ -53,10 +53,22 @@ p.tag-words {
   font-weight: 700;
   font-size: 30px;
   line-height: 40px;
+  color:rgb(75,4,169,1);    
 }
 
 .strapline {
-  font-size: 15px;
+  font-size: 22px;
+  color:rgb(75,4,169,1); 
 }
 form#searchform {
     margin-top: 25px;}
+
+
+
+
+
+
+
+
+
+
