@@ -17,7 +17,7 @@
   <div>
     <h4 class="copies-available">Copies Available</h4>
     {% for book_copy in book.copies.all %}
-      <hr>
+      <hr class="hr-copies-available">
       <p><strong>Copy number:</strong> {{ book_copy.copy_number }} <span class="text-muted"><strong>(Id:</strong> {{ book_copy.id }})</span></p>
       {% if book_copy.available %}
         <p>Available</p>

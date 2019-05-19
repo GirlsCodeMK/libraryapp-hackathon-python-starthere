@@ -21,6 +21,10 @@ a
     margin-top: 0px;
 }
 
+.hr-copies-available {
+  border-color: #ffc107;
+}
+
 .mdc-card {
     display: inline-block;
 margin: 0px 50px 70px 0px;
