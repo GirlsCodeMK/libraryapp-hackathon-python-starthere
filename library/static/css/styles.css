@@ -24,6 +24,19 @@ a {
     padding: 0;
     list-style: none;
 }
+.col-sm-2.navbarleft {
+
+
+     background-color:#3D00BB;
+     text-transform: uppercase;
+     color:white; 
+}
+
+
+.navbarleft a{
+      color:white;}
+
+
 .mdc-card {
     display: inline-block;
 margin: 0px 50px 70px 0px;
