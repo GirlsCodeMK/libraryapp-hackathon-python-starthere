@@ -97,6 +97,7 @@ class Loan(models.Model):
     borrower = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     loan_start = models.DateField()
     return_due = models.DateField()
+    approved = models.BooleanField(default=False)
     date_returned = models.DateField(null=True, blank=True)
     microbit_id = models.PositiveIntegerField(blank=True, null=True)
     last_microbit_update = models.DateTimeField(blank=True, null=True)
