@@ -1,22 +1,25 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-  <h1>Title: {{ book.title }}</h1>
-
-  <p><strong>Author:</strong> {{ book.author }}</p> <!-- author detail link not yet defined -->
-  <p><strong>ISBN:</strong> {{ book.isbn }}</p>
-  <p><strong>Category:</strong>{{book.category}}</p>
-  <img src="{{ book.image }}">
+  <h1>{{ book.title }}</h1>
 
 
-  {% if perms.library.change_book %} <p><a href="{% url 'book_update' book.id %}">Update</a></p> {% endif %}
-  {% if perms.library.delete_book %} <p><a href="{% url 'book_delete' book.id %}">Delete</a></p> {% endif %}
 
-  <div style="margin-left:20px;margin-top:20px">
-    <h4>Copies</h4>
+<div class="row">
+  <div class="col-sm-6">
+    <p><strong>Author:</strong> {{ book.author }}</p> <!-- author detail link not yet defined -->
+    <p><strong>ISBN:</strong> {{ book.isbn }}</p>
+    <p><strong>Category:</strong>{{book.category}}</p>
+    <img src="{{ book.image }}">
+      {% if perms.library.change_book %} <p><a href="{% url 'book_update' book.id %}">Update</a></p> {% endif %}
+      {% if perms.library.delete_book %} <p><a href="{% url 'book_delete' book.id %}">Delete</a></p> {% endif %}
+</div>
 
+<div class="col-sm-6">
+  <div>
+    <h4 class="copies-available">Copies Available</h4>
     {% for book_copy in book.copies.all %}
-      <hr>
+      <hr class="hr-copies-available">
       <p><strong>Copy number:</strong> {{ book_copy.copy_number }} <span class="text-muted"><strong>(Id:</strong> {{ book_copy.id }})</span></p>
       {% if book_copy.available %}
         <p>Available</p>
@@ -33,5 +36,7 @@
     {% endfor %}
 
     {% if perms.library.add_copy %} <p><a href="{% url 'copy_create' %}">Add a copy</a></p> {% endif %}
+  </div>
+  </div>
   </div>
 {% endblock %}
