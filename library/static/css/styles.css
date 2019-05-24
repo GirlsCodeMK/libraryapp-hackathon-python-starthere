@@ -2,15 +2,45 @@ h1 {
 
 }
 
-
 button {
-  background-color: ##edf6ff;
+  background-color: #edf6ff;
   color: gray;
   border-color: #0074D9;
   border-style: solid;
   padding: 1rem;
   border-radius: 1em;
+  box-shadow: none;
 }
+
+.magnifybutton {
+  background-color: #3D00B8;
+  color: white;
+  border-color: #3D00B8;
+  border-style: solid;
+  border-radius:0px 10px 10px 0px;
+  height: 45px;
+  width: 45px;
+}
+
+.magnifybutton-icon {
+  font-size: 1.25rem;
+}
+
+.searchfield {
+  border-radius:10px 0px 0px 10px;
+  width: 275px;
+  border-style: solid;
+  border-color: #3D00B8;
+  border-width: 1px;
+  padding-left: 12px;
+  font-size: 17px;
+}
+
+#searchform {
+    vertical-align: middle;
+    display: flex;
+}
+
 a {
   color : #0074D9
 }
@@ -76,7 +106,7 @@ p.tag-words {
 
 .strapline {
   font-size: 22px;
-  color:rgb(75,4,169,1); 
+  color:rgb(75,4,169,1);
 }
 
 form#searchform {
